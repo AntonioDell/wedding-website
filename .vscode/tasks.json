@@ -1,0 +1,34 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Development Environment",
+      "type": "shell",
+      "command": "docker compose up --build",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "Starts the Nuxt 3 app and PostgreSQL database for local development"
+    },
+    {
+      "label": "Stop Development Environment",
+      "type": "shell",
+      "command": "docker compose down",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "detail": "Stops the development environment"
+    },
+    {
+      "label": "Run Prisma Migrations",
+      "type": "shell",
+      "command": "docker exec -it wedding-website-nuxt-app-1 npx prisma migrate dev",
+      "problemMatcher": [],
+      "detail": "Run Prisma migrations inside the Nuxt app container"
+    }
+  ]
+}
