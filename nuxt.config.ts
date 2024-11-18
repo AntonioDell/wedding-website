@@ -5,4 +5,11 @@ export default defineNuxtConfig({
   runtimeConfig: {
     databaseUrl: process.env.DATABASE_URL, // Default in runtime
   },
+  pages: true,
+  routeRules: {
+    "/api/invitations": { appMiddleware: "auth" },
+  },
+  app: {
+    pageTransition: { name: "page", mode: "out-in" },
+  },
 });
