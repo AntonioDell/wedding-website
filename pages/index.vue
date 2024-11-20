@@ -1,26 +1,31 @@
 <template>
   <div>
-    <h1>Hello!</h1>
-    <p v-if="showProcessing">Chhecking your invitation...</p>
-    <p v-else-if="status === `success`">Please step right in.</p>
-    <p v-else-if="status === `error`">You are not invited.</p>
+    <process-invitation-code
+      :code
+      @code-is-valid="onCodeIsValid"
+      @code-is-invalid="onCodeIsInvalid"
+    />
   </div>
 </template>
 <script setup lang="ts">
-import { useTimeout, useTimeoutFn } from "@vueuse/core";
+import type { Invitation } from "@prisma/client";
+import { useTimeoutFn } from "@vueuse/core";
+import { useInvitationStore } from "~/stores/invitationStore";
 
 const route = useRoute();
 const router = useRouter();
+const invitationStore = useInvitationStore();
 
-const { data: invitation, status } = await useFetch("/api/invitations", {
-  query: route.query,
-});
+const code = computed(
+  () =>
+    invitationStore.invitation?.code ||
+    (route.query.code as string) ||
+    undefined
+);
 
-const minimumTimeToShowProcessing = useTimeout(1000);
 const { start: startCountdownToRedirect } = useTimeoutFn(
   () => {
-    // TODO: Set invitation as cookie?
-    if (invitation.value) {
+    if (invitationStore.invitation) {
       router.push("/welcome");
     } else {
       router.push("/invalid-code");
@@ -32,21 +37,12 @@ const { start: startCountdownToRedirect } = useTimeoutFn(
   }
 );
 
-const showProcessing = computed(() => {
-  return (
-    status.value == `idle` ||
-    status.value === `pending` ||
-    !minimumTimeToShowProcessing.value
-  );
-});
+function onCodeIsValid(invitation: Invitation) {
+  invitationStore.invitation = invitation;
+  startCountdownToRedirect();
+}
 
-watch(
-  showProcessing,
-  () => {
-    if (!showProcessing.value) {
-      startCountdownToRedirect();
-    }
-  },
-  { immediate: true }
-);
+function onCodeIsInvalid() {
+  startCountdownToRedirect();
+}
 </script>
