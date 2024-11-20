@@ -7,7 +7,8 @@
     "dev": "nuxt dev -H 0.0.0.0 -p 3000",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "cleanup": "sudo rm -rf .nuxt .output node_modules & pnpm i & pnpx prisma generate"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.7.0",
