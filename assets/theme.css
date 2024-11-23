@@ -1,0 +1,30 @@
+:root {
+  --dark-purple: #3c096c;
+  --purple: #5a189a;
+  --light-purple: #9d4edd;
+  --yellow: #ffc880;
+  --orange: #ff9100;
+}
+
+h1 {
+  padding: 50px;
+  border: 2px solid var(--yellow);
+  backdrop-filter: blur(12px);
+  color: var(--yellow);
+}
+
+button {
+  transition: all 0.4s;
+  width: fit-content;
+  padding: 10px;
+  background-color: var(--dark-purple);
+  color: var(--yellow);
+  border-color: var(--yellow);
+}
+
+button:hover,
+button:active {
+  background-color: #ffc880;
+  border-color: var(--dark-purple);
+  color: var(--dark-purple);
+}

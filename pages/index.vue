@@ -1,6 +1,6 @@
 <template>
   <div>
-    <process-invitation-code
+    <ProcessInvitationCode
       :code
       @code-is-valid="onCodeIsValid"
       @code-is-invalid="onCodeIsInvalid"
@@ -43,6 +43,7 @@ function onCodeIsValid(invitation: Invitation) {
 }
 
 function onCodeIsInvalid() {
+  invitationStore.invitation = undefined;
   startCountdownToRedirect();
 }
 </script>

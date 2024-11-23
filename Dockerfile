@@ -1,21 +1,20 @@
 # Define args to use throughout the file
 ARG NODE_VERSION=20.15.0
 
-FROM node:${NODE_VERSION}-slim AS base
+FROM node:${NODE_VERSION}-slim as base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 RUN apt-get update && apt-get install -y openssl libssl3
+COPY . /app
 WORKDIR /app
 
 FROM base AS prod-deps
-COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --prod --frozen-lockfile
-COPY prisma ./prisma
-RUN pnpx prisma generate
 
-FROM prod-deps AS build
-COPY . .
+FROM base AS build
+RUN pnpm install --frozen-lockfile
+RUN pnpx prisma generate
 RUN pnpm run build
 
 FROM base
