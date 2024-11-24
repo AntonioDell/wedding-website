@@ -6,6 +6,13 @@
 </template>
 <script setup lang="ts">
 const error = useError();
+watch(
+  error,
+  (newValue) => {
+    console.error(newValue);
+  },
+  { immediate: true }
+);
 function onBackButtonClicked() {
   clearError({ redirect: "/" });
 }

@@ -8,13 +8,15 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "cleanup": "sudo rm -rf .nuxt .output node_modules & pnpm i & pnpx prisma generate"
+    "cleanup": "sudo rm -rf .nuxt .output node_modules",
+    "aftercleanup": "pnpm i & pnpx prisma generate"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.7.0",
     "@prisma/client": "^5.22.0",
     "@vueuse/core": "^11.2.0",
     "nuxt": "^3.14.159",
+    "pinia": "^2.2.6",
     "vue": "latest",
     "vue-router": "latest"
   },
