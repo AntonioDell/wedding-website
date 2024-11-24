@@ -18,9 +18,7 @@ const invitationStore = useInvitationStore();
 
 const code = computed(
   () =>
-    invitationStore.invitation?.code ||
-    (route.query.code as string) ||
-    undefined
+    invitationStore.invitationCode || (route.query.code as string) || undefined
 );
 
 const { start: startCountdownToRedirect } = useTimeoutFn(
@@ -39,11 +37,13 @@ const { start: startCountdownToRedirect } = useTimeoutFn(
 
 function onCodeIsValid(invitation: Invitation) {
   invitationStore.invitation = invitation;
+  invitationStore.invitationCode = code.value;
   startCountdownToRedirect();
 }
 
 function onCodeIsInvalid() {
   invitationStore.invitation = undefined;
+  invitationStore.invitationCode = undefined;
   startCountdownToRedirect();
 }
 </script>

@@ -1,7 +1,7 @@
 # Define args to use throughout the file
 ARG NODE_VERSION=20.15.0
 
-FROM node:${NODE_VERSION}-slim as base
+FROM node:${NODE_VERSION}-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -12,8 +12,7 @@ WORKDIR /app
 FROM base AS prod-deps
 RUN pnpm install --prod --frozen-lockfile
 
-FROM base AS build
-RUN pnpm install --frozen-lockfile
+FROM prod-deps AS build
 RUN pnpx prisma generate
 RUN pnpm run build
 

@@ -7,16 +7,20 @@
 }
 
 h1 {
-  padding: 50px;
+  padding: 3rem;
   border: 2px solid var(--yellow);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(1rem);
   color: var(--yellow);
+  font-family: "Rochester";
+  font-style: normal;
+  font-size: 4rem;
+  width: fit-content;
 }
 
 button {
   transition: all 0.4s;
   width: fit-content;
-  padding: 10px;
+  padding: 1rem;
   background-color: var(--dark-purple);
   color: var(--yellow);
   border-color: var(--yellow);

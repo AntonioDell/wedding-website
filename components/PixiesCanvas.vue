@@ -6,6 +6,7 @@
 <script setup lang="ts">
 import { useWindowSize } from "@vueuse/core";
 
+//TODO: Make pixies flee from mouse
 const { height: windowHeight, width: windowWidth } = useWindowSize();
 
 const pixieCanvas = useTemplateRef("pixie");

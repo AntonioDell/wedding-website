@@ -1,9 +1,7 @@
 <template>
-  <div style="position: relative">
-    <PixiesCanvas />
-    <NuxtRouteAnnouncer />
-    <NuxtPage></NuxtPage>
-  </div>
+  <PixiesCanvas />
+  <NuxtRouteAnnouncer />
+  <NuxtPage />
 </template>
 <script setup lang="ts"></script>
 <style>
@@ -15,8 +13,9 @@
 }
 .page-enter-from,
 .page-leave-to {
-  opacity: 0;
+  opacity: 1;
   filter: blur(1rem);
+  backdrop-filter: blur(1rem);
 }
 
 html,

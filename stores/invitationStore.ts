@@ -1,24 +1,21 @@
 export const useInvitationStore = defineStore("invitations", () => {
-  const invitation = ref<{ code: string; id: number }>();
+  const invitation = ref<{ code: string }>();
+  const invitationCode = ref<string>();
 
   onMounted(() => {
-    const storedInvitation = localStorage.getItem("invitation");
-    if (
-      storedInvitation &&
-      storedInvitation !== "undefined" &&
-      storedInvitation.includes("code") &&
-      storedInvitation.includes("id")
-    )
-      invitation.value = JSON.parse(storedInvitation);
+    const storedInvitationCode = localStorage.getItem("invitationCode");
+    if (storedInvitationCode && storedInvitationCode !== "undefined")
+      invitationCode.value = JSON.parse(storedInvitationCode);
     else {
-      invitation.value = undefined;
+      invitationCode.value = undefined;
       localStorage.clear();
     }
   });
 
   watch(invitation, (newValue) => {
-    if (newValue) localStorage.setItem("invitation", JSON.stringify(newValue));
-    else localStorage.clear();
+    if (newValue) {
+      localStorage.setItem("invitationCode", JSON.stringify(newValue.code));
+    } else localStorage.clear();
   });
-  return { invitation };
+  return { invitation, invitationCode };
 });
