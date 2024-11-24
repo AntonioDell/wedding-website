@@ -20,6 +20,5 @@ export const useInvitationStore = defineStore("invitations", () => {
     if (newValue) localStorage.setItem("invitation", JSON.stringify(newValue));
     else localStorage.clear();
   });
-
   return { invitation };
 });
