@@ -1,21 +1,36 @@
+import { skipHydrate } from "pinia";
+
 export const useInvitationStore = defineStore("invitations", () => {
   const invitation = ref<{ code: string }>();
-  const invitationCode = ref<string>();
+  const invitationCode = ref<string>(getFromLocalStorage());
 
   onMounted(() => {
-    const storedInvitationCode = localStorage.getItem("invitationCode");
-    if (storedInvitationCode && storedInvitationCode !== "undefined")
-      invitationCode.value = JSON.parse(storedInvitationCode);
-    else {
-      invitationCode.value = undefined;
-      localStorage.clear();
-    }
+    invitationCode.value = getFromLocalStorage();
   });
 
   watch(invitation, (newValue) => {
-    if (newValue) {
+    if (import.meta.server) return;
+
+    if (newValue)
       localStorage.setItem("invitationCode", JSON.stringify(newValue.code));
-    } else localStorage.clear();
   });
-  return { invitation, invitationCode };
+
+  function getFromLocalStorage() {
+    console.log("What");
+    if (import.meta.server) return undefined;
+    console.log("Where");
+    const storedInvitationCode = localStorage.getItem("invitationCode");
+    console.log(storedInvitationCode);
+    if (storedInvitationCode && storedInvitationCode !== "undefined")
+      return JSON.parse(storedInvitationCode);
+    else {
+      localStorage.clear();
+      return undefined;
+    }
+  }
+
+  return {
+    invitation,
+    invitationCode,
+  };
 });

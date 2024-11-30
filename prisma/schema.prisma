@@ -14,9 +14,9 @@ datasource db {
 }
 
 model Invitation {
-  code     String           @id
-  adressee Addressee?
-  status   InvitationStatus @default(PENDING)
+  code      String           @id
+  addressee Addressee?
+  status    InvitationStatus @default(PENDING)
 }
 
 enum InvitationStatus {
@@ -26,13 +26,13 @@ enum InvitationStatus {
 }
 
 model Addressee {
-  name           String       @id
-  type           AdresseeType @default(SINGLE)
-  invitation     Invitation   @relation(fields: [invitationCode], references: [code])
-  invitationCode String       @unique
+  name           String        @id
+  type           AddresseeType @default(SINGLE)
+  invitation     Invitation    @relation(fields: [invitationCode], references: [code])
+  invitationCode String        @unique
 }
 
-enum AdresseeType {
+enum AddresseeType {
   SINGLE
   COUPLE
   FAMILY
@@ -40,13 +40,12 @@ enum AdresseeType {
 
 model Wedding {
   id            Int            @id @default(autoincrement())
-  date          DateTime
   husbandToBe   String
   wifeToBe      String
   theme         Theme?
   location      Location?
+  schedule      Schedule?
   accomodations Accomodation[]
-  themeName     String?
 }
 
 model Theme {
@@ -66,7 +65,18 @@ model Location {
 }
 
 model Schedule {
-  id Int @id @default(autoincrement())
+  date      DateTime        @id
+  entries   ScheduleEntry[]
+  wedding   Wedding         @relation(fields: [weddingId], references: [id])
+  weddingId Int             @unique
+}
+
+model ScheduleEntry {
+  time         DateTime  @id
+  name         String
+  description  String
+  schedule     Schedule? @relation(fields: [scheduleDate], references: [date])
+  scheduleDate DateTime?
 }
 
 model Accomodation {
@@ -74,6 +84,6 @@ model Accomodation {
   link        String
   description String
   address     String
-  Wedding     Wedding? @relation(fields: [weddingId], references: [id])
-  weddingId   Int?
+  wedding     Wedding? @relation(fields: [weddingId], references: [id])
+  weddingId   Int      @unique
 }
