@@ -6,15 +6,27 @@
   --orange: #ff9100;
 }
 
-h1 {
-  padding: 3rem;
-  border: 2px solid var(--yellow);
-  backdrop-filter: blur(1rem);
-  color: var(--yellow);
-  font-family: "Rochester";
+h1,
+h2,
+h3 {
+  font-family: "Tangerine";
   font-style: normal;
-  font-size: 4rem;
+  font-size: 5rem;
   width: fit-content;
+  text-shadow: #fc0 1px 0 10px;
+}
+
+section {
+  padding: 3rem;
+  color: var(--yellow);
+}
+
+section,
+p {
+  font-family: "Mada";
+  font-style: normal;
+  font-size: 1.5rem;
+  text-shadow: #fc0 1px 0 10px;
 }
 
 button {

@@ -1,5 +1,7 @@
 {
   "editor.formatOnSave": true,
   "vue.format.style.initialIndent": false,
-  "prettier.documentSelectors": [".vue,.ts,.js"]
+  "prettier.documentSelectors": [".vue,.ts,.js"],
+  "editor.autoIndent": "full",
+  "editor.indentSize": "tabSize"
 }

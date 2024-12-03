@@ -22,22 +22,19 @@ html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background: url("/dark_forest.jpg") no-repeat fixed 0 0 / cover,
     radial-gradient(
-      circle at 50% 50%,
-      var(--light-purple),
-      var(--purple),
-      var(--dark-purple)
-    );
+        circle at 50% 50%,
+        var(--light-purple),
+        var(--purple),
+        var(--dark-purple)
+      )
+      fixed;
   background-blend-mode: multiply;
   background-size: cover;
   background-position: center;
