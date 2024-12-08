@@ -1,10 +1,11 @@
 {
   "version": "2.0.0",
+
   "tasks": [
     {
       "label": "Start Development Environment",
       "type": "shell",
-      "command": "docker compose up --build",
+      "command": "UID=1000 GID=1000 docker compose up --build",
       "problemMatcher": [],
       "group": {
         "kind": "build",
@@ -26,7 +27,7 @@
     {
       "label": "Run Prisma Migrations",
       "type": "shell",
-      "command": "docker exec -it wedding-website-nuxt-app-1 npx prisma migrate dev",
+      "command": "docker exec --user $(id -u):$(id -g) -it wedding-website-nuxt-app-1 npx prisma migrate dev",
       "problemMatcher": [],
       "detail": "Run Prisma migrations inside the Nuxt app container"
     }

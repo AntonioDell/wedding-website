@@ -14,6 +14,7 @@ services:
     volumes:
       - .:/app
     command: "pnpm dev" # For local development; change to `start` in production
+    user: "${UID}:${GID}" # Set the user to the current host user
 
   postgres:
     image: postgres:15
