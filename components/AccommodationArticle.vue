@@ -3,9 +3,9 @@
     <h3><slot name="title"></slot></h3>
     <slot></slot>
     <p v-if="lat && long">
-      <a :href="`geo:${lat},${long}`">
+      <LocationLink :lat :long>
         <slot name="address"></slot>
-      </a>
+      </LocationLink>
     </p>
     <p v-if="link">
       <a :href="link" target="_blank">Mehr Infos hier</a>

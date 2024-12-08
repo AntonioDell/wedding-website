@@ -45,10 +45,10 @@
         </p>
         <p>
           Die Adresse lautet:<br />
-          <a href="geo:48.672103,10.875480">
+          <LocationLink lat="48.672103" long="10.875480">
             Fuggerallee 1<br />
             86698 Oberndorf am Lech
-          </a>
+          </LocationLink>
         </p>
         <p>
           Mehr Infos zu Schloss Oberndorf könnt ihr auf der offiziellen Website
