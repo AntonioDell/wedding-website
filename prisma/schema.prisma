@@ -39,51 +39,8 @@ enum AddresseeType {
 }
 
 model Wedding {
-  id            Int            @id @default(autoincrement())
-  husbandToBe   String
-  wifeToBe      String
-  theme         Theme?
-  location      Location?
-  schedule      Schedule?
-  accomodations Accomodation[]
-}
-
-model Theme {
-  name        String  @id
-  description String
-  wedding     Wedding @relation(fields: [weddingId], references: [id])
-  weddingId   Int     @unique
-}
-
-model Location {
-  name        String  @id
-  link        String
-  description String
-  address     String
-  wedding     Wedding @relation(fields: [weddingId], references: [id])
-  weddingId   Int     @unique
-}
-
-model Schedule {
-  date      DateTime        @id
-  entries   ScheduleEntry[]
-  wedding   Wedding         @relation(fields: [weddingId], references: [id])
-  weddingId Int             @unique
-}
-
-model ScheduleEntry {
-  time         DateTime  @id
-  name         String
-  description  String
-  schedule     Schedule? @relation(fields: [scheduleDate], references: [date])
-  scheduleDate DateTime?
-}
-
-model Accomodation {
-  name        String   @id
-  link        String
-  description String
-  address     String
-  wedding     Wedding? @relation(fields: [weddingId], references: [id])
-  weddingId   Int      @unique
+  id          Int      @id @default(autoincrement())
+  husbandToBe String
+  wifeToBe    String
+  date        DateTime @default(now())
 }

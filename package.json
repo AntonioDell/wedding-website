@@ -7,9 +7,11 @@
     "dev": "nuxt dev -H 0.0.0.0 -p 3000",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:generate": "prisma generate",
     "postinstall": "nuxt prepare",
     "cleanup": "sudo rm -rf .nuxt .output node_modules",
-    "aftercleanup": "pnpm i & pnpx prisma generate"
+    "aftercleanup": "pnpm i & prisma generate"
   },
   "dependencies": {
     "@nuxt/fonts": "^0.10.2",

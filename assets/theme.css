@@ -11,9 +11,21 @@ h2,
 h3 {
   font-family: "Tangerine";
   font-style: normal;
-  font-size: 5rem;
   width: fit-content;
   text-shadow: #fc0 1px 0 10px;
+  word-spacing: 0.5ch;
+}
+
+h1 {
+  font-size: 5rem;
+}
+
+h2 {
+  font-size: 4rem;
+}
+
+h3 {
+  font-size: 3rem;
 }
 
 section {
@@ -43,4 +55,16 @@ button:active {
   background-color: #ffc880;
   border-color: var(--dark-purple);
   color: var(--dark-purple);
+}
+
+a {
+  color: var(--orange);
+}
+
+a:visited {
+  color: var(--yellow);
+}
+
+a:hover {
+  color: var(--light-purple);
 }

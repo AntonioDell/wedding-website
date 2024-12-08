@@ -10,7 +10,6 @@ const { speed = 2 } = defineProps<{ speed?: number }>();
 const slots = defineSlots<{ default(): VNode[] }>();
 
 const charCount = computed(() => {
-  console.log(slots.default());
   if (slots.default().length === 0) return 0;
   return slots
     .default()

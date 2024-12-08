@@ -16,11 +16,8 @@ export const useInvitationStore = defineStore("invitations", () => {
   });
 
   function getFromLocalStorage() {
-    console.log("What");
     if (import.meta.server) return undefined;
-    console.log("Where");
     const storedInvitationCode = localStorage.getItem("invitationCode");
-    console.log(storedInvitationCode);
     if (storedInvitationCode && storedInvitationCode !== "undefined")
       return JSON.parse(storedInvitationCode);
     else {
