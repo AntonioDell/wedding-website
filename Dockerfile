@@ -13,7 +13,8 @@ FROM base AS prod-deps
 RUN pnpm install --prod --frozen-lockfile
 
 FROM prod-deps AS build
-RUN pnpx prisma generate
+RUN pnpm prisma:generate
+RUN pnpm generate
 RUN pnpm run build
 
 FROM base
