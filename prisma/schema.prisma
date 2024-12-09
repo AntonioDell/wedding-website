@@ -14,9 +14,12 @@ datasource db {
 }
 
 model Invitation {
-  code      String           @id
-  addressee Addressee?
-  status    InvitationStatus @default(PENDING)
+  code                  String            @id
+  addressee             Addressee?
+  accommodationProvided Boolean           @default(false)
+  accommodationNights   Int               @default(0) @db.SmallInt
+  accommodationType     AccommodationType @default(TWIN_BED)
+  status                InvitationStatus  @default(PENDING)
 }
 
 enum InvitationStatus {
@@ -36,6 +39,11 @@ enum AddresseeType {
   SINGLE
   COUPLE
   FAMILY
+}
+
+enum AccommodationType {
+  TWIN_BED
+  SINGLE_BED
 }
 
 model Wedding {

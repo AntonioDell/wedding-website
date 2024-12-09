@@ -76,7 +76,37 @@
         </p>
         <!-- TODO: Add section about help for costume like fashion-->
       </section>
-      <section>
+      <section v-if="invitation?.accommodationProvided">
+        <header><h2>Unterkunft</h2></header>
+        <p>
+          Ihr seid in der Pension am Mühlbach in einem
+          {{
+            invitation?.accommodationType === `TWIN_BED`
+              ? "Doppelzimmer"
+              : "Einzelzimmer"
+          }}
+          für {{ invitation.accommodationNights }} Nächte untergebracht. Das ist
+          die Unterkunft die im vorhinein für das Brautpaar, nahe Familie und
+          Trauzeugen reserviert wurde.
+        </p>
+        <p>
+          Solltet ihr euch selbst eine andere Unterkunft besorgen, sagt uns
+          bitte vorher bescheid, damit wir die Reservierung in der Pension
+          aufheben können.
+        </p>
+        <p>
+          Die Adresse lautet:<br />
+          <LocationLink lat="48.668162" long="10.869897">
+            Fischerstraße 8<br />
+            Oberndorf am Lech
+          </LocationLink>
+        </p>
+        <p>
+          Mehr Infos zur Unterkunft findet ihr
+          <a href="https://www.pension-oberndorf.de/">hier</a>.
+        </p>
+      </section>
+      <section v-else>
         <header><h2>Unterkünfte</h2></header>
         <p>
           Da Schloss Oberndorf in einer ländlicheren Gegend liegt, empfehlen wir
@@ -185,7 +215,7 @@ import AccommodationArticle from "~/components/AccommodationArticle.vue";
 const dateOnlyFormat = new Intl.DateTimeFormat("de", { dateStyle: "long" });
 const timeOnlyFormat = new Intl.DateTimeFormat("de", { timeStyle: "short" });
 
-const { invitationCode } = storeToRefs(useInvitationStore());
+const { invitationCode, invitation } = storeToRefs(useInvitationStore());
 
 const weddingDateFormatted = computed(() =>
   weddingInfos.value?.date
