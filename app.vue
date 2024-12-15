@@ -27,7 +27,7 @@ body {
 }
 
 body {
-  background: url("/dark_forest.jpg") no-repeat fixed 0 0 / cover,
+  background: url("/images/dark_forest.jpg") no-repeat fixed 0 0 / cover,
     radial-gradient(
         circle at 50% 50%,
         var(--light-purple),

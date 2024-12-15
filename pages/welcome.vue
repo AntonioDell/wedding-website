@@ -8,7 +8,7 @@
         status === `success`
       "
     >
-      <section>
+      <section class="first-section wavey-box">
         <template v-if="weddingInfos.invitation.addressee.type === `SINGLE`">
           <header>
             <h1>Einladung für {{ weddingInfos.invitation.addressee.name }}</h1>
@@ -44,6 +44,23 @@
           </p>
         </template>
       </section>
+      <ClientOnly>
+        <Countdown
+          style="text-shadow: none !important"
+          labelColor="var(--yellow)"
+          mainColor="var(--purple)"
+          secondFlipColor="var(--purple)"
+          mainFlipBackgroundColor="white"
+          secondFlipBackgroundColor="white"
+          :deadlineISO="weddingInfos.date"
+          :labels="{
+            days: `Tage`,
+            hours: `Stunden`,
+            minutes: `Minuten`,
+            seconds: `Sekunden`,
+          }"
+        ></Countdown>
+      </ClientOnly>
       <section>
         <header><h2>RSVP</h2></header>
         <RsvpForm
@@ -221,6 +238,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import { Countdown } from "vue3-flip-countdown";
 import AccommodationArticle from "~/components/AccommodationArticle.vue";
 
 const { invitationCode } = useAuth();
@@ -243,4 +261,23 @@ const {
   immediate: true,
 });
 </script>
-<style scoped></style>
+<style scoped>
+.wavey-box {
+  padding-bottom: 6rem;
+  background-image: url("/images/brautpaar_am_see.jpg");
+  background-size: cover;
+  background-position: center;
+
+  background-repeat: no-repeat;
+  --mask: radial-gradient(
+        7.89rem at 50% calc(100% - 10.8rem),
+        #000 99%,
+        #0000 101%
+      )
+      calc(50% - 8rem) 0/16rem 100%,
+    radial-gradient(7.89rem at 50% calc(100% + 6.8rem), #0000 99%, #000 101%)
+      50% calc(100% - 4rem) / 16rem 100% repeat-x;
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+</style>

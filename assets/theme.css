@@ -41,6 +41,12 @@ p {
   text-shadow: #fc0 1px 0 10px;
 }
 
+div {
+  font-family: "Mada";
+  font-style: normal;
+  font-size: 1.5rem;
+}
+
 button {
   transition: all 0.4s;
   width: fit-content;
