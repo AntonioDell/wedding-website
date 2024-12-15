@@ -1,10 +1,17 @@
 <template>
   <div class="welcome">
-    <template v-if="status === `success` && weddingInfos">
+    <template
+      v-if="
+        weddingInfos &&
+        weddingInfos.invitation &&
+        weddingInfos.invitation.addressee &&
+        status === `success`
+      "
+    >
       <section>
-        <template v-if="weddingInfos.addressee.type === `SINGLE`">
+        <template v-if="weddingInfos.invitation.addressee.type === `SINGLE`">
           <header>
-            <h1>Einladung für {{ weddingInfos.addressee.name }}</h1>
+            <h1>Einladung für {{ weddingInfos.invitation.addressee.name }}</h1>
           </header>
           <p>
             Wir freuen uns sehr, dich zu unserer Hochzeit am
@@ -14,9 +21,11 @@
             Du bist herzlich eingeladen, auch deine:n Liebste:n mitzubringen.
           </p>
         </template>
-        <template v-else-if="weddingInfos.addressee.type === `COUPLE`">
+        <template
+          v-else-if="weddingInfos.invitation.addressee.type === `COUPLE`"
+        >
           <header>
-            <h1>Einladung für {{ weddingInfos.addressee.name }}</h1>
+            <h1>Einladung für {{ weddingInfos.invitation.addressee.name }}</h1>
           </header>
           <p>
             Wir freuen uns sehr, euch zu unserer Hochzeit am
@@ -25,13 +34,22 @@
         </template>
         <template v-else>
           <header>
-            <h2>Einladung für Familie {{ weddingInfos.addressee.name }}</h2>
+            <h2>
+              Einladung für Familie {{ weddingInfos.invitation.addressee.name }}
+            </h2>
           </header>
           <p>
             Wir freuen uns sehr, euch zu unserer Hochzeit am
             <strong>{{ weddingDateFormatted }}</strong> einzuladen!
           </p>
         </template>
+      </section>
+      <section>
+        <header><h2>RSVP</h2></header>
+        <RsvpForm
+          :current-status="weddingInfos.invitation.status"
+          :addressee-type="weddingInfos.invitation.addressee.type"
+        />
       </section>
       <section>
         <header>
@@ -76,18 +94,18 @@
         </p>
         <!-- TODO: Add section about help for costume like fashion-->
       </section>
-      <section v-if="invitation?.accommodationProvided">
+      <section v-if="weddingInfos.invitation.accommodationProvided">
         <header><h2>Unterkunft</h2></header>
         <p>
           Ihr seid in der Pension am Mühlbach in einem
           {{
-            invitation?.accommodationType === `TWIN_BED`
+            weddingInfos.invitation.accommodationType === `TWIN_BED`
               ? "Doppelzimmer"
               : "Einzelzimmer"
           }}
-          für {{ invitation.accommodationNights }} Nächte untergebracht. Das ist
-          die Unterkunft die im vorhinein für das Brautpaar, nahe Familie und
-          Trauzeugen reserviert wurde.
+          für {{ weddingInfos.invitation.accommodationNights }} Nächte
+          untergebracht. Das ist die Unterkunft die im vorhinein für das
+          Brautpaar, nahe Familie und Trauzeugen reserviert wurde.
         </p>
         <p>
           Solltet ihr euch selbst eine andere Unterkunft besorgen, sagt uns
@@ -205,17 +223,10 @@
 <script setup lang="ts">
 import AccommodationArticle from "~/components/AccommodationArticle.vue";
 
-/* TODO: Add
-  - Salutation (for different type of guests)
-  - Location
-  - Schedule
-  - Accomodations
-*/
+const { invitationCode } = useAuth();
 
 const dateOnlyFormat = new Intl.DateTimeFormat("de", { dateStyle: "long" });
 const timeOnlyFormat = new Intl.DateTimeFormat("de", { timeStyle: "short" });
-
-const { invitationCode, invitation } = storeToRefs(useInvitationStore());
 
 const weddingDateFormatted = computed(() =>
   weddingInfos.value?.date
@@ -228,8 +239,8 @@ const {
   error,
   status,
 } = await useFetch("/api/weddingInfos", {
-  query: { code: invitationCode },
-  immediate: false,
+  query: { code: invitationCode.value },
+  immediate: true,
 });
 </script>
 <style scoped></style>

@@ -10,24 +10,19 @@
 <script setup lang="ts">
 import type { Invitation } from "@prisma/client";
 import { useTimeoutFn } from "@vueuse/core";
-import { useInvitationStore } from "~/stores/invitationStore";
+import { useAuth } from "~/composables/auth";
 
 const route = useRoute();
 const router = useRouter();
-const invitationStore = useInvitationStore();
+const { invitationCode } = useAuth();
 
 const code = computed(
-  () =>
-    invitationStore.invitationCode || (route.query.code as string) || undefined
+  () => invitationCode.value || (route.query.code as string) || undefined
 );
 
 const { start: startCountdownToRedirect } = useTimeoutFn(
   () => {
-    if (invitationStore.invitation) {
-      router.push("/welcome");
-    } else {
-      router.push("/invalid-code");
-    }
+    router.push("/welcome");
   },
   1000,
   {
@@ -36,14 +31,12 @@ const { start: startCountdownToRedirect } = useTimeoutFn(
 );
 
 function onCodeIsValid(invitation: Invitation) {
-  invitationStore.invitation = invitation;
-  invitationStore.invitationCode = code.value;
+  invitationCode.value = invitation.code;
   startCountdownToRedirect();
 }
 
 function onCodeIsInvalid() {
-  invitationStore.invitation = undefined;
-  invitationStore.invitationCode = undefined;
+  invitationCode.value = undefined;
   startCountdownToRedirect();
 }
 </script>
