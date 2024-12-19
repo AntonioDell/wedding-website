@@ -4,71 +4,97 @@
   --light-purple: #9d4edd;
   --yellow: #ffc880;
   --orange: #ff9100;
+  --small-screen: 812px;
+  font-family: "Mada";
+  font-style: normal;
+  font-size: large;
+}
+
+body {
+  color: white;
 }
 
 h1,
 h2,
 h3 {
-  font-family: "Tangerine";
-  font-style: normal;
-  width: fit-content;
-  text-shadow: #fc0 1px 0 10px;
+  font-family: "Playfair Display";
   word-spacing: 0.5ch;
 }
 
 h1 {
-  font-size: 5rem;
-}
-
-h2 {
-  font-size: 4rem;
-}
-
-h3 {
   font-size: 3rem;
 }
 
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: x-large;
+}
+
 section {
-  padding: 3rem;
-  color: var(--yellow);
+  padding: 1.5rem;
 }
 
 section,
 p {
   font-family: "Mada";
   font-style: normal;
-  font-size: 1.5rem;
-  text-shadow: #fc0 1px 0 10px;
 }
 
-div {
-  font-family: "Mada";
-  font-style: normal;
-  font-size: 1.5rem;
+strong {
+  white-space: nowrap;
+  line-height: 2%;
+}
+
+@media screen and (min-width: 812px) {
+  :root {
+    font-size: 1.5rem;
+  }
+  strong {
+    white-space: unset;
+    line-height: unset;
+  }
+
+  h1 {
+    font-size: 5rem;
+  }
+
+  h2 {
+    font-size: 4rem;
+  }
+
+  h3 {
+    font-size: 3rem;
+  }
+
+  section {
+    padding: 3rem;
+  }
 }
 
 button {
   transition: all 0.4s;
   width: fit-content;
   padding: 1rem;
-  background-color: var(--dark-purple);
-  color: var(--yellow);
-  border-color: var(--yellow);
+  background-color: black;
+  color: white;
+  border-color: white;
 }
 
 button:hover,
 button:active {
-  background-color: #ffc880;
-  border-color: var(--dark-purple);
-  color: var(--dark-purple);
+  background-color: white;
+  color: black;
 }
 
 a {
-  color: var(--orange);
+  color: var(--yellow);
 }
 
 a:visited {
-  color: var(--yellow);
+  color: white;
 }
 
 a:hover {

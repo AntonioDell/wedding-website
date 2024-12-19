@@ -13,15 +13,17 @@ import { useScroll } from "@vueuse/core";
 
 const navbarRef = useTemplateRef("navbar");
 
-const { isScrolling, directions } = useScroll(document.querySelector("body"));
-const { bottom: toBottom, top: toTop } = toRefs(directions);
+if (import.meta.client) {
+  const { isScrolling, directions } = useScroll(document.querySelector("body"));
+  const { bottom: toBottom, top: toTop } = toRefs(directions);
 
-watch(isScrolling, () => {
-  if (!isScrolling.value || !navbarRef.value) return;
-  if (toBottom.value)
-    navbarRef.value.style.top = `-${navbarRef.value.clientHeight}px`;
-  else if (toTop.value) navbarRef.value.style.top = `0px`;
-});
+  watch(isScrolling, () => {
+    if (!isScrolling.value || !navbarRef.value) return;
+    if (toBottom.value)
+      navbarRef.value.style.top = `-${navbarRef.value.clientHeight}px`;
+    else if (toTop.value) navbarRef.value.style.top = `0px`;
+  });
+}
 </script>
 <style scoped>
 .navbar {

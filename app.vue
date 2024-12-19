@@ -18,6 +18,10 @@
   filter: blur(1rem);
   backdrop-filter: blur(1rem);
 }
+html {
+  height: 100vh;
+  position: relative;
+}
 html,
 body {
   margin: 0;
@@ -27,7 +31,6 @@ body {
 }
 
 body {
-  height: 100vh;
   overflow-y: scroll;
   background: url("/images/dark_forest.jpg") no-repeat fixed 0 0 / cover,
     radial-gradient(

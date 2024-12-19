@@ -47,9 +47,9 @@
       <ClientOnly>
         <Countdown
           style="text-shadow: none !important"
-          labelColor="var(--yellow)"
-          mainColor="var(--purple)"
-          secondFlipColor="var(--purple)"
+          labelColor="white"
+          mainColor="black"
+          secondFlipColor="black"
           mainFlipBackgroundColor="white"
           secondFlipBackgroundColor="white"
           :deadlineISO="weddingInfos.date"
@@ -277,56 +277,21 @@ const {
   background-image: url("/images/brautpaar_am_see.jpg");
   background-size: cover;
   background-position: center;
-
   background-repeat: no-repeat;
-  --mask: radial-gradient(
-        7.89rem at 50% calc(100% - 10.8rem),
-        #000 99%,
-        #0000 101%
-      )
-      calc(50% - 8rem) 0/16rem 100%,
-    radial-gradient(7.89rem at 50% calc(100% + 6.8rem), #0000 99%, #000 101%)
-      50% calc(100% - 4rem) / 16rem 100% repeat-x;
-  -webkit-mask: var(--mask);
-  mask: var(--mask);
+  margin-bottom: 4rem;
 }
 
 .wavey-box p,
 .wavey-box header {
   --text-border-color: var(--yellow);
   --text-border-size: 1px;
-  color: var(--dark-purple);
-  font-weight: bold;
-  text-shadow: var(--text-border-size) 0 var(--text-border-color),
-    calc(var(--text-border-size) * -1) 0 var(--text-border-color),
-    0 var(--text-border-size) var(--text-border-color),
-    0 calc(var(--text-border-size) * -1) var(--text-border-color),
-    calc(var(--text-border-size) * 0.5) calc(var(--text-border-size) * 0.5)
-      var(--text-border-color),
-    calc(var(--text-border-size) * -0.5) calc(var(--text-border-size) * -0.5)
-      var(--text-border-color),
-    calc(var(--text-border-size) * 0.5) calc(var(--text-border-size) * -0.5)
-      var(--text-border-color),
-    calc(var(--text-border-size) * -0.5) 1px var(--text-border-color);
+  color: black;
+  background-color: var(--yellow);
 }
 .wavey-box p strong {
-  --text-border-color: var(--dark-purple);
-  --text-border-size: 1px;
-  color: var(--yellow);
-  font-weight: bold;
-  text-shadow: var(--text-border-size) 0 var(--text-border-color),
-    calc(var(--text-border-size) * -1) 0 var(--text-border-color),
-    0 var(--text-border-size) var(--text-border-color),
-    0 calc(var(--text-border-size) * -1) var(--text-border-color),
-    calc(var(--text-border-size) * 0.5) calc(var(--text-border-size) * 0.5)
-      var(--text-border-color),
-    calc(var(--text-border-size) * -0.5) calc(var(--text-border-size) * -0.5)
-      var(--text-border-color),
-    calc(var(--text-border-size) * 0.5) calc(var(--text-border-size) * -0.5)
-      var(--text-border-color),
-    calc(var(--text-border-size) * -0.5) 1px var(--text-border-color);
-  border: 2px solid var(--yellow);
+  color: white;
+  border: 4px solid black;
+  color: black;
   padding: 4px;
-  backdrop-filter: blur(2px);
 }
 </style>
