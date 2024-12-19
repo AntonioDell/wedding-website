@@ -8,7 +8,7 @@
         status === `success`
       "
     >
-      <section class="first-section wavey-box">
+      <section id="top" class="first-section wavey-box">
         <template v-if="weddingInfos.invitation.addressee.type === `SINGLE`">
           <header>
             <h1>Einladung für {{ weddingInfos.invitation.addressee.name }}</h1>
@@ -61,14 +61,14 @@
           }"
         ></Countdown>
       </ClientOnly>
-      <section>
+      <section id="rsvp">
         <header><h2>RSVP</h2></header>
         <RsvpForm
           :current-status="weddingInfos.invitation.status"
           :addressee-type="weddingInfos.invitation.addressee.type"
         />
       </section>
-      <section>
+      <section id="location">
         <header>
           <h2>Unser Schloss Oberndorf</h2>
         </header>
@@ -91,8 +91,10 @@
           <a href="https://schloss-oberndorf.de/">schloss-oberndorf.de</a>
         </p>
       </section>
-      <section>
-        <header><h2>Das Thema der Hochzeit ist "Dark Fairytale"</h2></header>
+      <section id="theme">
+        <header>
+          <h2>Das Thema der Hochzeit ist "Dark Fairytale"</h2>
+        </header>
         <p>"Dark Fairytale" heißt übersetzt etwa "Dunkle Märchen".</p>
         <p>
           Gemeint sind damit sowohl die originalen Märchen von den Gebrüder
@@ -111,7 +113,10 @@
         </p>
         <!-- TODO: Add section about help for costume like fashion-->
       </section>
-      <section v-if="weddingInfos.invitation.accommodationProvided">
+      <section
+        id="accommodation"
+        v-if="weddingInfos.invitation.accommodationProvided"
+      >
         <header><h2>Unterkunft</h2></header>
         <p>
           Ihr seid in der Pension am Mühlbach in einem
@@ -141,7 +146,7 @@
           <a href="https://www.pension-oberndorf.de/">hier</a>.
         </p>
       </section>
-      <section v-else>
+      <section id="accommodation" v-else>
         <header><h2>Unterkünfte</h2></header>
         <p>
           Da Schloss Oberndorf in einer ländlicheren Gegend liegt, empfehlen wir
@@ -207,7 +212,7 @@
         </AccommodationArticle>
       </section>
       <section>
-        <header><h2>Ablauf</h2></header>
+        <header id="itinerary"><h2>Ablauf</h2></header>
         <article>
           <h3>14:00 Uhr Sektempfang</h3>
           <p>Beschreibung</p>
@@ -262,6 +267,11 @@ const {
 });
 </script>
 <style scoped>
+.welcome {
+  overflow: hidden;
+  position: unset;
+}
+
 .wavey-box {
   padding-bottom: 6rem;
   background-image: url("/images/brautpaar_am_see.jpg");
@@ -279,5 +289,44 @@ const {
       50% calc(100% - 4rem) / 16rem 100% repeat-x;
   -webkit-mask: var(--mask);
   mask: var(--mask);
+}
+
+.wavey-box p,
+.wavey-box header {
+  --text-border-color: var(--yellow);
+  --text-border-size: 1px;
+  color: var(--dark-purple);
+  font-weight: bold;
+  text-shadow: var(--text-border-size) 0 var(--text-border-color),
+    calc(var(--text-border-size) * -1) 0 var(--text-border-color),
+    0 var(--text-border-size) var(--text-border-color),
+    0 calc(var(--text-border-size) * -1) var(--text-border-color),
+    calc(var(--text-border-size) * 0.5) calc(var(--text-border-size) * 0.5)
+      var(--text-border-color),
+    calc(var(--text-border-size) * -0.5) calc(var(--text-border-size) * -0.5)
+      var(--text-border-color),
+    calc(var(--text-border-size) * 0.5) calc(var(--text-border-size) * -0.5)
+      var(--text-border-color),
+    calc(var(--text-border-size) * -0.5) 1px var(--text-border-color);
+}
+.wavey-box p strong {
+  --text-border-color: var(--dark-purple);
+  --text-border-size: 1px;
+  color: var(--yellow);
+  font-weight: bold;
+  text-shadow: var(--text-border-size) 0 var(--text-border-color),
+    calc(var(--text-border-size) * -1) 0 var(--text-border-color),
+    0 var(--text-border-size) var(--text-border-color),
+    0 calc(var(--text-border-size) * -1) var(--text-border-color),
+    calc(var(--text-border-size) * 0.5) calc(var(--text-border-size) * 0.5)
+      var(--text-border-color),
+    calc(var(--text-border-size) * -0.5) calc(var(--text-border-size) * -0.5)
+      var(--text-border-color),
+    calc(var(--text-border-size) * 0.5) calc(var(--text-border-size) * -0.5)
+      var(--text-border-color),
+    calc(var(--text-border-size) * -0.5) 1px var(--text-border-color);
+  border: 2px solid var(--yellow);
+  padding: 4px;
+  backdrop-filter: blur(2px);
 }
 </style>

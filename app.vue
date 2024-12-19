@@ -1,6 +1,7 @@
 <template>
   <PixiesCanvas />
   <NuxtRouteAnnouncer />
+  <Navigation />
   <NuxtPage />
 </template>
 <script setup lang="ts"></script>
@@ -17,16 +18,17 @@
   filter: blur(1rem);
   backdrop-filter: blur(1rem);
 }
-
 html,
 body {
   margin: 0;
-  padding: 0;
-  height: 100vh;
   width: 100vw;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body {
+  height: 100vh;
+  overflow-y: scroll;
   background: url("/images/dark_forest.jpg") no-repeat fixed 0 0 / cover,
     radial-gradient(
         circle at 50% 50%,
@@ -36,9 +38,7 @@ body {
       )
       fixed;
   background-blend-mode: multiply;
-  background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
   margin: 0;
   padding: 0;
   color: white;
