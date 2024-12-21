@@ -7,7 +7,6 @@
   --small-screen: 812px;
   font-family: "Mada";
   font-style: normal;
-  font-size: large;
 }
 
 body {
@@ -48,9 +47,9 @@ strong {
   line-height: 2%;
 }
 
-@media screen and (min-width: 812px) {
+@media screen and (min-width: 813px) {
   :root {
-    font-size: 1.5rem;
+    font-size: 24px;
   }
   strong {
     white-space: unset;
@@ -58,35 +57,38 @@ strong {
   }
 
   h1 {
-    font-size: 5rem;
-  }
-
-  h2 {
     font-size: 4rem;
   }
 
-  h3 {
+  h2 {
     font-size: 3rem;
   }
 
+  h3 {
+    font-size: 2rem;
+  }
+
   section {
-    padding: 3rem;
+    padding: 2rem;
   }
 }
 
 button {
+  all: unset;
   transition: all 0.4s;
   width: fit-content;
-  padding: 1rem;
+  padding: 0.5rem;
   background-color: black;
   color: white;
-  border-color: white;
+  border: 1px solid white;
+  cursor: pointer;
 }
 
 button:hover,
 button:active {
   background-color: white;
   color: black;
+  border-color: black;
 }
 
 a {

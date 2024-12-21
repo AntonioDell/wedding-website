@@ -1,7 +1,6 @@
 <template>
   <PixiesCanvas />
   <NuxtRouteAnnouncer />
-  <Navigation />
   <NuxtPage />
 </template>
 <script setup lang="ts"></script>

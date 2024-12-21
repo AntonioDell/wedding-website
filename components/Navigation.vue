@@ -1,46 +1,95 @@
 <template>
-  <nav class="navbar" ref="navbar">
-    <NuxtLink to="#top">Zum Anfang</NuxtLink>
-    <NuxtLink to="#rsvp">RSVP</NuxtLink>
-    <NuxtLink to="#location">Schloss Oberndorf</NuxtLink>
-    <NuxtLink to="#theme">Thema</NuxtLink>
-    <NuxtLink to="#accommodation">Unterkünfte</NuxtLink>
-    <NuxtLink to="#itinerary">Ablauf</NuxtLink>
-  </nav>
+  <Transition name="slide-down">
+    <nav v-if="isNavigationVisible" class="navbar">
+      <template v-for="link in links" :key="link.to"
+        ><span
+          >&#9001;
+          <NuxtLink :to="link.to">
+            {{ link.label }}
+          </NuxtLink>
+          &#9002;</span
+        ></template
+      >
+    </nav>
+  </Transition>
 </template>
 <script setup lang="ts">
-import { useScroll } from "@vueuse/core";
+import {
+  useBrowserLocation,
+  useScroll,
+  useWindowSize,
+  type MaybeElementRef,
+} from "@vueuse/core";
+import { toRefs } from "vue";
 
-const navbarRef = useTemplateRef("navbar");
+const links = [
+  { to: "#top", label: "Zum Anfang" },
+  { to: "#rsvp", label: "RSVP" },
+  { to: "#location", label: "Schloss Oberndorf" },
+  { to: "#theme", label: "Thema" },
+  { to: "#accommodation", label: "Unterkünfte" },
+  { to: "#itinerary", label: "Ablauf" },
+];
 
-if (import.meta.client) {
-  const { isScrolling, directions } = useScroll(document.querySelector("body"));
-  const { bottom: toBottom, top: toTop } = toRefs(directions);
+const router = useRouter();
+const { width } = useWindowSize();
+const welcomeRef = ref<HTMLElement | null>(null);
+const { isScrolling, directions } = useScroll(welcomeRef);
+const { top: toTop } = toRefs(directions);
 
-  watch(isScrolling, () => {
-    if (!isScrolling.value || !navbarRef.value) return;
-    if (toBottom.value)
-      navbarRef.value.style.top = `-${navbarRef.value.clientHeight}px`;
-    else if (toTop.value) navbarRef.value.style.top = `0px`;
-  });
+const forceNavigationHidden = ref<boolean>(false);
+const isNavigationVisible = computed<boolean>((oldValue) => {
+  if (width.value > 812) return true;
+  if (forceNavigationHidden.value) return false;
+  else if (!isScrolling.value) return oldValue === undefined ? true : oldValue;
+  return toTop.value;
+});
+
+watch(router.currentRoute, (newValue) => {
+  if (import.meta.server) return;
+  const hash = newValue.hash;
+  if (hash) onLinkClicked(hash.slice(1));
+});
+
+watch(isScrolling, () => {
+  forceNavigationHidden.value = false;
+});
+
+onMounted(() => {
+  welcomeRef.value = document.getElementById("welcome");
+  const hash = router.currentRoute.value.hash;
+  if (hash) onLinkClicked(hash.slice(1));
+});
+
+function onLinkClicked(elementId: string) {
+  const el = document.getElementById(elementId);
+  el?.scrollIntoView({ behavior: "smooth" });
+  forceNavigationHidden.value = true;
 }
 </script>
 <style scoped>
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
   width: 100vw;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
   background-color: black;
+  padding: 0.5rem 0;
+  gap: 0.5rem;
   z-index: 100;
+  white-space: nowrap;
+  line-break: strict;
 }
 
-@media screen and (min-width: 812px) {
-  .navbar {
-    flex-direction: row;
-    padding: 0.5rem 0;
-  }
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+.slide-down-enter-from,
+.slide-down-leave-to {
+  transform: translatey(-100%);
 }
 </style>

@@ -23,8 +23,8 @@
         <label for="rsvpRejected">leider nicht kommen.</label>
       </p>
     </fieldset>
-    <template v-if="rsvpRespond === `ACCEPTED` && addresseeType === `SINGLE`">
-      <fieldset>
+    <Transition name="slide">
+      <fieldset v-if="rsvpRespond === `ACCEPTED` && addresseeType === `SINGLE`">
         <legend>Ich bringe...</legend>
         <p>
           <input
@@ -47,6 +47,8 @@
           <label for="plusOneYes">jemanden mit.</label>
         </p>
       </fieldset>
+    </Transition>
+    <Transition name="slide">
       <fieldset v-if="plusOneYesNo">
         <legend>Und zwar...</legend>
         <input
@@ -55,16 +57,23 @@
           name="plusOnePerson"
           v-model="plusOnePerson"
           placeholder="Bitte Vor- und Nachnamen angeben"
-        />
-      </fieldset>
-    </template>
+        /></fieldset
+    ></Transition>
     <button
-      v-if="rsvpRespond === `ACCEPTED` || rsvpRespond === `PENDING`"
+      v-if="rsvpRespond === `ACCEPTED`"
       type="submit"
+      style="align-self: center"
     >
-      {{ submitLabel }}
+      {{ currentStatus === `ACCEPTED` ? "Zusage aktualisieren" : "Zusagen" }}
     </button>
-    <p v-else>
+    <button
+      v-else-if="rsvpRespond === `REJECTED`"
+      type="submit"
+      style="align-self: center"
+    >
+      {{ currentStatus === `REJECTED` ? "Absage aktualisieren" : "Absagen" }}
+    </button>
+    <p v-else-if="rsvpRespond === `PENDING` && currentStatus === `REJECTED`">
       Es ist sehr schade, dass du/ihr nicht kommen könnt. Falls ihr es euch
       anders überlegt, könnt ihr eure Absage in diesem Formular bis 2 Wochen vor
       der Hochzeit ändern.
@@ -87,23 +96,44 @@ watch(plusOneYesNo, (newValue) => {
   if (!newValue) plusOnePerson.value = "";
 });
 
-const hideSubmitButton = computed(() => {
-  return currentStatus === "REJECTED" && rsvpRespond.value === "REJECTED";
-});
-
-const submitLabel = computed(() => {
-  if (currentStatus === `PENDING`)
-    return rsvpRespond.value === "ACCEPTED" ? "Zusagen" : "Absagen";
-  else if (currentStatus === `ACCEPTED`) return "Zusage aktualisieren";
-  else return "Absage aktualisieren";
-});
-
 function onSubmit() {}
 </script>
 <style lang="css" scoped>
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 fieldset {
   display: flex;
   flex-direction: column;
   align-items: start;
+  transition: cubic-bezier(1, 0, 0, 1);
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.5s ease-in-out;
+  opacity: 1;
+}
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(50%);
+  opacity: 0;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.25s ease-out;
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 </style>

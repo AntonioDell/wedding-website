@@ -22,7 +22,7 @@ const code = computed(
 
 const { start: startCountdownToRedirect } = useTimeoutFn(
   () => {
-    router.push("/welcome");
+    router.push({ path: "/welcome", hash: router.currentRoute.value.hash });
   },
   1000,
   {

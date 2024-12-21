@@ -2,7 +2,6 @@ import prisma from "~/server/utils/prisma";
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);
-  console.log(query);
   if (!query.code)
     throw createError({
       statusCode: 400,

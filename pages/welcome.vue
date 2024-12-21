@@ -1,5 +1,6 @@
 <template>
-  <div class="welcome">
+  <div id="welcome" class="welcome">
+    <Navigation ref="navbar" />
     <template
       v-if="
         weddingInfos &&
@@ -93,7 +94,7 @@
       </section>
       <section id="theme">
         <header>
-          <h2>Das Thema der Hochzeit ist "Dark Fairytale"</h2>
+          <h2>Das Thema - "Dark Fairytale"</h2>
         </header>
         <p>"Dark Fairytale" heißt übersetzt etwa "Dunkle Märchen".</p>
         <p>
@@ -117,7 +118,7 @@
         id="accommodation"
         v-if="weddingInfos.invitation.accommodationProvided"
       >
-        <header><h2>Unterkunft</h2></header>
+        <header><h2>Deine Unterkunft</h2></header>
         <p>
           Ihr seid in der Pension am Mühlbach in einem
           {{
@@ -212,25 +213,25 @@
         </AccommodationArticle>
       </section>
       <section>
-        <header id="itinerary"><h2>Ablauf</h2></header>
+        <header id="itinerary"><h2>Der Ablauf</h2></header>
         <article>
-          <h3>14:00 Uhr Sektempfang</h3>
+          <h3>14:00 Uhr - Sektempfang</h3>
           <p>Beschreibung</p>
         </article>
         <article>
-          <h3>15:00 Uhr Trauung</h3>
+          <h3>15:00 Uhr - Trauung</h3>
           <p>Beschreibung</p>
         </article>
         <article>
-          <h3>16:00 Uhr Kaffee & Kuchen</h3>
+          <h3>16:00 Uhr - Kaffee & Kuchen</h3>
           <p>Beschreibung</p>
         </article>
         <article>
-          <h3>17:00 Uhr Essen</h3>
+          <h3>17:00 Uhr - Essen</h3>
           <p>Beschreibung</p>
         </article>
         <article>
-          <h3>2:00 Uhr Schluss</h3>
+          <h3>2:00 Uhr - Schluss</h3>
           <p>
             Um spätestens 2 Uhr nachts ist die Party vorbei, denn dann beginnt
             die Nachtruhe.
@@ -243,10 +244,14 @@
   </div>
 </template>
 <script setup lang="ts">
+import { useElementSize } from "@vueuse/core";
 import { Countdown } from "vue3-flip-countdown";
 import AccommodationArticle from "~/components/AccommodationArticle.vue";
 
 const { invitationCode } = useAuth();
+const navbarRef = useTemplateRef("navbar");
+
+const { height: navbarHeight } = useElementSize(navbarRef);
 
 const dateOnlyFormat = new Intl.DateTimeFormat("de", { dateStyle: "long" });
 const timeOnlyFormat = new Intl.DateTimeFormat("de", { timeStyle: "short" });
@@ -268,8 +273,9 @@ const {
 </script>
 <style scoped>
 .welcome {
-  overflow: hidden;
-  position: unset;
+  height: 100vh;
+  overflow-y: scroll;
+  padding-top: v-bind(navbarHeight);
 }
 
 .wavey-box {
