@@ -17,7 +17,7 @@ const router = useRouter();
 const { invitationCode } = useAuth();
 
 const code = computed(
-  () => invitationCode.value || (route.query.code as string) || undefined
+  () => (route.query.code as string) || invitationCode.value || undefined
 );
 
 const { start: startCountdownToRedirect } = useTimeoutFn(

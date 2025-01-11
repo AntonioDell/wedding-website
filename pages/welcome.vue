@@ -1,59 +1,26 @@
 <template>
   <div id="welcome" class="welcome">
     <Navigation ref="navbar" />
-    <template
-      v-if="
-        weddingInfos &&
-        weddingInfos.invitation &&
-        weddingInfos.invitation.addressee &&
-        status === `success`
-      "
-    >
-      <section id="top" class="first-section wavey-box">
-        <template v-if="weddingInfos.invitation.addressee.type === `SINGLE`">
-          <header>
-            <h1>Einladung für {{ weddingInfos.invitation.addressee.name }}</h1>
-          </header>
-          <p>
-            Wir freuen uns sehr, dich zu unserer Hochzeit am
-            <strong>{{ weddingDateFormatted }}</strong> einzuladen!
-          </p>
-          <p>
-            Du bist herzlich eingeladen, auch deine:n Liebste:n mitzubringen.
-          </p>
-        </template>
-        <template
-          v-else-if="weddingInfos.invitation.addressee.type === `COUPLE`"
-        >
-          <header>
-            <h1>Einladung für {{ weddingInfos.invitation.addressee.name }}</h1>
-          </header>
-          <p>
-            Wir freuen uns sehr, euch zu unserer Hochzeit am
-            <strong>{{ weddingDateFormatted }}</strong> einzuladen!
-          </p>
-        </template>
-        <template v-else>
-          <header>
-            <h2>
-              Einladung für Familie {{ weddingInfos.invitation.addressee.name }}
-            </h2>
-          </header>
-          <p>
-            Wir freuen uns sehr, euch zu unserer Hochzeit am
-            <strong>{{ weddingDateFormatted }}</strong> einzuladen!
-          </p>
-        </template>
-      </section>
+    <template v-if="welcomeData && guest && wedding">
+      <InvitationHeaderSection
+        v-if="wedding && rsvpFormReady"
+        id="top"
+        :guestType="guest.type"
+        :single
+        :couple
+        :family
+        :weddingDate="weddingDateFormatted"
+      />
       <ClientOnly>
         <Countdown
+          v-if="wedding"
           style="text-shadow: none !important"
           labelColor="white"
           mainColor="black"
           secondFlipColor="black"
           mainFlipBackgroundColor="white"
           secondFlipBackgroundColor="white"
-          :deadlineISO="weddingInfos.date"
+          :deadlineISO="wedding.date"
           :labels="{
             days: `Tage`,
             hours: `Stunden`,
@@ -62,13 +29,17 @@
           }"
         ></Countdown>
       </ClientOnly>
-      <section id="rsvp">
-        <header><h2>RSVP</h2></header>
-        <RsvpForm
-          :current-status="weddingInfos.invitation.status"
-          :addressee-type="weddingInfos.invitation.addressee.type"
-        />
-      </section>
+      <RsvpForm
+        v-if="rsvpFormReady"
+        id="rsvp"
+        :guest-type="guest.type"
+        :wedding
+        :accommodation="welcomeData.accommodation"
+        :single
+        :couple
+        :family
+        :family-members
+      />
       <section id="location">
         <header>
           <h2>Unser Schloss Oberndorf</h2>
@@ -114,19 +85,16 @@
         </p>
         <!-- TODO: Add section about help for costume like fashion-->
       </section>
-      <section
-        id="accommodation"
-        v-if="weddingInfos.invitation.accommodationProvided"
-      >
+      <section id="accommodation" v-if="welcomeData.accommodation.is_provided">
         <header><h2>Deine Unterkunft</h2></header>
         <p>
           Ihr seid in der Pension am Mühlbach in einem
           {{
-            weddingInfos.invitation.accommodationType === `TWIN_BED`
+            welcomeData.accommodation.type === `TWIN_BED`
               ? "Doppelzimmer"
               : "Einzelzimmer"
           }}
-          für {{ weddingInfos.invitation.accommodationNights }} Nächte
+          für {{ welcomeData.accommodation.nights_included }} Nächte
           untergebracht. Das ist die Unterkunft die im vorhinein für das
           Brautpaar, nahe Familie und Trauzeugen reserviert wurde.
         </p>
@@ -244,60 +212,83 @@
   </div>
 </template>
 <script setup lang="ts">
+import type {
+  Accommodation,
+  Couple,
+  Family,
+  FamilyMember,
+  Guest,
+  Invitation,
+  Single,
+  Wedding,
+} from "@prisma/client";
 import { useElementSize } from "@vueuse/core";
 import { Countdown } from "vue3-flip-countdown";
-import AccommodationArticle from "~/components/AccommodationArticle.vue";
 
-const { invitationCode } = useAuth();
 const navbarRef = useTemplateRef("navbar");
-
 const { height: navbarHeight } = useElementSize(navbarRef);
-
-const dateOnlyFormat = new Intl.DateTimeFormat("de", { dateStyle: "long" });
-const timeOnlyFormat = new Intl.DateTimeFormat("de", { timeStyle: "short" });
-
-const weddingDateFormatted = computed(() =>
-  weddingInfos.value?.date
-    ? dateOnlyFormat.format(new Date(weddingInfos.value.date))
-    : ""
-);
+const { dateOnlyFormat } = useFormat();
+const { $authenticatedFetch } = useNuxtApp();
 
 const {
-  data: weddingInfos,
-  error,
+  data: welcomeData,
   status,
-} = await useFetch("/api/weddingInfos", {
-  query: { code: invitationCode.value },
-  immediate: true,
-});
+  error,
+} = await useAsyncData("welcome", () =>
+  $authenticatedFetch<{
+    wedding: Wedding;
+    guest: Guest;
+    invitation: Invitation;
+    accommodation: Accommodation;
+  }>("/api/welcome")
+);
+
+const wedding = computed(() => welcomeData.value?.wedding);
+const guest = computed(() => welcomeData.value?.guest);
+
+const weddingDateFormatted = computed(() =>
+  wedding.value?.date ? dateOnlyFormat.format(new Date(wedding.value.date)) : ""
+);
+
+const guestType = computed(() => guest.value?.type || undefined);
+const single = ref<Single>();
+const couple = ref<Couple>();
+const family = ref<Family>();
+const familyMembers = ref<FamilyMember[]>();
+const rsvpFormReady = ref<boolean>(false);
+
+watch(
+  guestType,
+  async (newGuestType) => {
+    if (!newGuestType) return;
+
+    if (newGuestType === "SINGLE") {
+      single.value = await $authenticatedFetch<Single>("/api/single");
+      couple.value = undefined;
+      family.value = undefined;
+      familyMembers.value = undefined;
+    } else if (newGuestType === "COUPLE") {
+      couple.value = await $authenticatedFetch<Couple>("/api/couple");
+      single.value = undefined;
+      family.value = undefined;
+      familyMembers.value = undefined;
+    } else {
+      const { family_members: tmpFamilyMembers, ...tmpFamily } =
+        await $authenticatedFetch("/api/family");
+      familyMembers.value = tmpFamilyMembers;
+      family.value = tmpFamily;
+      single.value = undefined;
+      couple.value = undefined;
+    }
+    rsvpFormReady.value = true;
+  },
+  { immediate: true }
+);
 </script>
 <style scoped>
 .welcome {
   height: 100vh;
   overflow-y: scroll;
   padding-top: v-bind(navbarHeight);
-}
-
-.wavey-box {
-  padding-bottom: 6rem;
-  background-image: url("/images/brautpaar_am_see.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  margin-bottom: 4rem;
-}
-
-.wavey-box p,
-.wavey-box header {
-  --text-border-color: var(--yellow);
-  --text-border-size: 1px;
-  color: black;
-  background-color: var(--yellow);
-}
-.wavey-box p strong {
-  color: white;
-  border: 4px solid black;
-  color: black;
-  padding: 4px;
 }
 </style>

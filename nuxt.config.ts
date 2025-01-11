@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   runtimeConfig: {
-    databaseUrl: process.env.DATABASE_URL, // Default in runtime
+    databaseUrl: "",
   },
 
   pages: true,

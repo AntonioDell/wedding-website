@@ -24,10 +24,11 @@ watch(
     try {
       if (!props.code) throw Error();
       else {
-        const query = { code: props.code };
-        invitation.value = await $fetch("/api/invitations", {
-          query,
+        const code = props.code;
+        const result = await $fetch("/api/invitations", {
+          headers: { Authorization: code },
         });
+        invitation.value = result;
       }
       status.value = "success";
     } catch (e) {

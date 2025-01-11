@@ -10,40 +10,17 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-model Invitation {
-  code                  String            @id
-  addressee             Addressee?
-  accommodationProvided Boolean           @default(false)
-  accommodationNights   Int               @default(0) @db.SmallInt
-  accommodationType     AccommodationType @default(TWIN_BED)
-  status                InvitationStatus  @default(PENDING)
-}
-
-enum InvitationStatus {
-  PENDING
-  ACCEPTED
-  REJECTED
-}
-
-model Addressee {
-  name           String        @id
-  type           AddresseeType @default(SINGLE)
-  invitation     Invitation    @relation(fields: [invitationCode], references: [code])
-  invitationCode String        @unique
-}
-
-enum AddresseeType {
-  SINGLE
-  COUPLE
-  FAMILY
+  url      = env("NUXT_DATABASE_URL")
 }
 
 enum AccommodationType {
   TWIN_BED
   SINGLE_BED
+  NO_BED
+}
+
+model Admin {
+  code String @id
 }
 
 model Wedding {
@@ -51,4 +28,91 @@ model Wedding {
   husbandToBe String
   wifeToBe    String
   date        DateTime @default(now())
+}
+
+// New models:
+model Guest {
+  guest_id Int       @id @default(autoincrement())
+  type     GuestType @default(SINGLE)
+
+  // Relationships
+  single        Single?
+  couple        Couple?
+  family        Family?
+  invitation    Invitation?
+  accommodation Accommodation?
+}
+
+enum GuestType {
+  SINGLE
+  COUPLE
+  FAMILY
+}
+
+model Single {
+  single_id     Int     @id
+  name          String
+  is_coming     Choice  @default(UNDETERMINED)
+  plus_one      Choice  @default(UNDETERMINED)
+  plus_one_name String?
+
+  // Relationships
+  guest Guest @relation(fields: [single_id], references: [guest_id], onDelete: Cascade)
+}
+
+model Couple {
+  couple_id     Int    @id
+  partner1_name String
+  partner2_name String
+  is_coming     Choice @default(UNDETERMINED)
+
+  // Relationships
+  guest Guest @relation(fields: [couple_id], references: [guest_id], onDelete: Cascade)
+}
+
+model Family {
+  family_id Int    @id
+  name      String
+  is_coming Choice @default(UNDETERMINED)
+
+  // Relationships
+  guest          Guest          @relation(fields: [family_id], references: [guest_id], onDelete: Cascade)
+  family_members FamilyMember[]
+}
+
+model FamilyMember {
+  member_id         Int    @id @default(autoincrement())
+  family_id         Int
+  name              String
+  is_child_under_14 Choice @default(UNDETERMINED)
+
+  // Relationships
+  family Family @relation(fields: [family_id], references: [family_id], onDelete: Cascade)
+}
+
+model Invitation {
+  invitation_id Int    @id @default(autoincrement())
+  guest_id      Int    @unique
+  code          String @unique
+
+  // Relationships
+  guest Guest @relation(fields: [guest_id], references: [guest_id], onDelete: Cascade)
+}
+
+model Accommodation {
+  accommodation_id Int               @id @default(autoincrement())
+  guest_id         Int               @unique
+  is_provided      Boolean           @default(false)
+  type             AccommodationType @default(NO_BED)
+  nights_included  Int               @default(0) @db.SmallInt
+  is_accepted      Choice            @default(UNDETERMINED)
+
+  // Relationships
+  guest Guest @relation(fields: [guest_id], references: [guest_id], onDelete: Cascade)
+}
+
+enum Choice {
+  UNDETERMINED
+  YES
+  NO
 }

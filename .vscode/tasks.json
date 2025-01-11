@@ -30,6 +30,20 @@
       "command": "docker exec --user $(id -u):$(id -g) -it wedding-website-nuxt-app-1 npx prisma migrate dev",
       "problemMatcher": [],
       "detail": "Run Prisma migrations inside the Nuxt app container"
+    },
+    {
+      "label": "Create Prisma Migrations",
+      "type": "shell",
+      "command": "docker exec --user $(id -u):$(id -g) -it wedding-website-nuxt-app-1 npx prisma migrate dev --create-only",
+      "problemMatcher": [],
+      "detail": "Create Prisma migrations using `--create-only` flag inside the Nuxt app container"
+    },
+    {
+      "label": "Reset Prisma Migrations",
+      "type": "shell",
+      "command": "docker exec --user $(id -u):$(id -g) -it wedding-website-nuxt-app-1 npx prisma migrate reset --force",
+      "problemMatcher": [],
+      "detail": "Reset prisma shadow database"
     }
   ]
 }

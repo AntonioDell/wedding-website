@@ -19,7 +19,7 @@ RUN pnpm run build
 
 FROM base
 ARG PORT=3000
-ARG DATABASE_URL
+ARG NUXT_DATABASE_URL
 ENV PORT=${PORT}
 ENV NODE_ENV=production
 COPY --from=build /app/.output /app/.output
