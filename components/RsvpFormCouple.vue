@@ -8,7 +8,7 @@
           id="rsvpAccepted"
           name="rsvp"
           v-model="rsvpRespond"
-          :value="Choice.YES"
+          :value="`YES`"
         />
         <label for="rsvpAccepted">sehr gerne dabei sein!</label>
       </p>
@@ -18,7 +18,7 @@
           id="rsvpRejected"
           name="rsvp"
           v-model="rsvpRespond"
-          :value="Choice.NO"
+          :value="`NO`"
         />
         <label for="rsvpRejected">leider nicht kommen können.</label>
       </p>
@@ -40,7 +40,7 @@
             id="accommodationYes"
             name="accommodationChoice"
             v-model="accommodationChoice"
-            :value="Choice.YES"
+            :value="`YES`"
           />
           <label for="accommodationYes">warnehmen.</label>
         </p>
@@ -50,7 +50,7 @@
             id="accommodationNo"
             name="accommodationChoice"
             v-model="accommodationChoice"
-            :value="Choice.NO"
+            :value="`NO`"
           />
           <label for="accommodationNo">
             nicht nutzen und uns ggfs. eigenständig etwas suchen.
@@ -88,8 +88,7 @@
   </form>
 </template>
 <script setup lang="ts">
-import type { Accommodation, Couple, Wedding } from "@prisma/client";
-import { Choice } from "@prisma/client";
+import type { Accommodation, Choice, Couple, Wedding } from "@prisma/client";
 import dayjs from "dayjs";
 import { FetchError } from "ofetch";
 

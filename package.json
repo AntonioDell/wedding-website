@@ -5,6 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev -H 0.0.0.0 -p 3000",
+    "start": "nuxt start -H 0.0.0.0 -p 3000",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "prisma:migrate": "prisma migrate dev",

@@ -5,9 +5,9 @@
       <label for="guestType">Guest Type:</label>
       <select id="guestType" v-model="guestTypeInput">
         <option :value="undefined">--Select--</option>
-        <option :value="GuestType.SINGLE">Single</option>
-        <option :value="GuestType.COUPLE">Couple</option>
-        <option :value="GuestType.FAMILY">Family</option>
+        <option :value="`SINGLE`">Single</option>
+        <option :value="`COUPLE`">Couple</option>
+        <option :value="`FAMILY`">Family</option>
       </select>
       <label for="invitationCode">Code:</label>
       <input name="invitationCode" type="text" v-model="invitationCodeInput" />
@@ -109,8 +109,8 @@
         <label for="accommodationType">Type:</label>
         <select id="accommodationType" v-model="accommodationInput.type">
           <option :value="undefined">--Select--</option>
-          <option :value="AccommodationType.SINGLE_BED">Single Bed</option>
-          <option :value="AccommodationType.TWIN_BED">Twin Bed</option>
+          <option :value="`SINGLE_BED`">Single Bed</option>
+          <option :value="`TWIN_BED`">Twin Bed</option>
         </select>
         <label for="accommodationNightsIncluded">Nights included:</label>
         <input
@@ -130,8 +130,7 @@
   </form>
 </template>
 <script setup lang="ts">
-import type { Choice } from "@prisma/client";
-import { AccommodationType, GuestType } from "@prisma/client";
+import type { Choice, GuestType } from "@prisma/client";
 import FormChoiceField from "~/components/FormChoiceField.vue";
 import type { FamilyMemberType, GuestFormType } from "~/components/types";
 

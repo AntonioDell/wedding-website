@@ -8,7 +8,7 @@
           id="rsvpAccepted"
           name="rsvp"
           v-model="rsvpRespond"
-          :value="Choice.YES"
+          :value="`YES`"
         />
         <label for="rsvpAccepted">sehr gerne dabei sein!</label>
       </p>
@@ -18,7 +18,7 @@
           id="rsvpRejected"
           name="rsvp"
           v-model="rsvpRespond"
-          :value="Choice.NO"
+          :value="`NO`"
         />
         <label for="rsvpRejected">leider nicht kommen.</label>
       </p>
@@ -32,7 +32,7 @@
             id="plusOneNo"
             name="plusOne"
             v-model="plusOneYesNo"
-            :value="Choice.NO"
+            :value="`NO`"
           />
           <label for="plusOneNo">niemanden mit.</label>
         </p>
@@ -42,7 +42,7 @@
             id="plusOneYes"
             name="plusOne"
             v-model="plusOneYesNo"
-            :value="Choice.YES"
+            :value="`YES`"
           />
           <label for="plusOneYes">jemanden mit.</label>
         </p>
@@ -82,7 +82,7 @@
             id="accommodationYes"
             name="accommodationChoice"
             v-model="accommodationChoice"
-            :value="Choice.YES"
+            :value="`YES`"
           />
           <label for="accommodationYes">warnehmen.</label>
         </p>
@@ -92,7 +92,7 @@
             id="accommodationNo"
             name="accommodationChoice"
             v-model="accommodationChoice"
-            :value="Choice.NO"
+            :value="`NO`"
           />
           <label for="accommodationNo">
             nicht nutzen und mir ggfs. eigenständig etwas suchen.
@@ -130,8 +130,7 @@
   </form>
 </template>
 <script setup lang="ts">
-import type { Accommodation, Single, Wedding } from "@prisma/client";
-import { Choice } from "@prisma/client";
+import type { Accommodation, Choice, Single, Wedding } from "@prisma/client";
 import dayjs from "dayjs";
 import { FetchError } from "ofetch";
 
