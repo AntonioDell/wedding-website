@@ -5,8 +5,9 @@ export const useRsvpForm = (isAccommodationProvided: boolean = false) => {
   const RsvpFormSingleSchema = z
     .object({
       is_coming: mandatoryChoice,
-      plus_one: mandatoryChoice,
-      plus_one_name: z.string().min(1).optional(),
+      is_coming_to_civil_marriage_day: optionalChoice,
+      plus_one: optionalChoice,
+      plus_one_name: z.string().optional().nullable(),
       is_accommodation_accepted: isAccommodationProvided
         ? mandatoryChoice
         : optionalChoice,
@@ -14,7 +15,7 @@ export const useRsvpForm = (isAccommodationProvided: boolean = false) => {
     .refine(
       (v) => {
         if (v.is_coming && v.plus_one === "YES") {
-          return v.plus_one_name !== undefined;
+          return v.plus_one_name && v.plus_one_name.length > 1;
         }
         return true;
       },
@@ -26,12 +27,14 @@ export const useRsvpForm = (isAccommodationProvided: boolean = false) => {
 
   const RsvpFormCoupleSchema = z.object({
     is_coming: mandatoryChoice,
+    is_coming_to_civil_marriage_day: optionalChoice,
     is_accommodation_accepted: isAccommodationProvided
       ? mandatoryChoice
       : optionalChoice,
   });
   const RsvpFormFamilySchema = z.object({
     is_coming: mandatoryChoice,
+    is_coming_to_civil_marriage_day: optionalChoice,
   });
   return { RsvpFormSingleSchema, RsvpFormCoupleSchema, RsvpFormFamilySchema };
 };

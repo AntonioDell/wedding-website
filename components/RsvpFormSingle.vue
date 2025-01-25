@@ -1,7 +1,38 @@
 <template>
   <form @submit.prevent="onSubmit">
+    <fieldset v-if="guest.is_invited_to_civil_marriage_day">
+      <legend>
+        Ich werde zur standesamtlichen Trauung am
+        {{
+          dateOnlyFormat.format(dayjs(wedding.civil_marriage_date).toDate())
+        }}...
+      </legend>
+      <p>
+        <input
+          type="radio"
+          id="rsvpCivlilAccepted"
+          name="rsvpCivil"
+          v-model="rsvpCivilRespond"
+          :value="`YES`"
+        />
+        <label for="rsvpCivlilAccepted">sehr gerne kommen!</label>
+      </p>
+      <p>
+        <input
+          type="radio"
+          id="rsvpCivlilRejected"
+          name="rsvpCivil"
+          v-model="rsvpCivilRespond"
+          :value="`NO`"
+        />
+        <label for="rsvpCivlilRejected">leider nicht kommen.</label>
+      </p>
+    </fieldset>
     <fieldset>
-      <legend>Ich werde...</legend>
+      <legend>
+        Ich werde zur Hochzeit am
+        {{ dateOnlyFormat.format(dayjs(wedding.date).toDate()) }}...
+      </legend>
       <p>
         <input
           type="radio"
@@ -10,7 +41,7 @@
           v-model="rsvpRespond"
           :value="`YES`"
         />
-        <label for="rsvpAccepted">sehr gerne dabei sein!</label>
+        <label for="rsvpAccepted">sehr gerne kommen!</label>
       </p>
       <p>
         <input
@@ -49,7 +80,7 @@
       </fieldset>
     </Transition>
     <Transition name="slide">
-      <fieldset v-if="plusOneYesNo === 'YES'">
+      <fieldset v-if="rsvpRespond === `YES` && plusOneYesNo === 'YES'">
         <legend>Und zwar...</legend>
         <input
           type="text"
@@ -106,7 +137,7 @@
       style="align-self: center"
       :disabled="isLoading"
     >
-      {{ isComing === `YES` ? "Zusage aktualisieren" : "Zusagen" }}
+      {{ guest.is_coming === `YES` ? "Zusage aktualisieren" : "Zusagen" }}
     </button>
     <button
       v-else-if="rsvpRespond === `NO`"
@@ -114,9 +145,9 @@
       style="align-self: center"
       :disabled="isLoading"
     >
-      {{ isComing === `NO` ? "Absage aktualisieren" : "Absagen" }}
+      {{ guest.is_coming === `NO` ? "Absage aktualisieren" : "Absagen" }}
     </button>
-    <p v-else-if="rsvpRespond === `UNDETERMINED` && isComing === `NO`">
+    <p v-else-if="rsvpRespond === `UNDETERMINED` && guest.is_coming === `NO`">
       Es ist sehr schade, dass du nicht kommen kannst. Falls du es dir anders
       überlegst, kannst du deine Absage in diesem Formular bis zum
       {{
@@ -130,23 +161,30 @@
   </form>
 </template>
 <script setup lang="ts">
-import type { Accommodation, Choice, Single, Wedding } from "@prisma/client";
+import type {
+  Accommodation,
+  Choice,
+  Guest,
+  Single,
+  Wedding,
+} from "@prisma/client";
 import dayjs from "dayjs";
 import { FetchError } from "ofetch";
 
-const { wedding, single, accommodation, isComing } = defineProps<{
+const { guest, wedding, single, accommodation } = defineProps<{
+  guest: Guest;
   wedding: Wedding;
   single: Single;
   accommodation: Accommodation;
-  isComing: Choice;
 }>();
 
 const submitSuccess = ref<boolean>(false);
 const isLoading = ref<boolean>(false);
-const rsvpRespond = ref<Choice>(isComing);
+const rsvpRespond = ref<Choice>(guest.is_coming);
 const plusOneYesNo = ref<Choice>(single.plus_one);
 const plusOnePerson = ref<string | null>(single.plus_one_name);
 const accommodationChoice = ref<Choice>(accommodation.is_accepted);
+const rsvpCivilRespond = ref<Choice>(guest.is_coming_to_civil_marriage_day);
 
 const { dateOnlyFormat } = useFormat();
 const { $authenticatedFetch } = useNuxtApp();
@@ -161,6 +199,7 @@ async function onSubmit() {
         plus_one: plusOneYesNo.value,
         plus_one_name: plusOnePerson.value,
         is_accommodation_accepted: accommodationChoice.value,
+        is_coming_to_civil_marriage_day: rsvpCivilRespond.value,
       },
       method: "POST",
     });

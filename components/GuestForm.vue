@@ -11,11 +11,19 @@
       </select>
       <label for="invitationCode">Code:</label>
       <input name="invitationCode" type="text" v-model="invitationCodeInput" />
+      <label for="isInvitedToCivilMarriageDay"
+        >Is invited to civil marriage day?</label
+      >
+      <input
+        type="checkbox"
+        id="isInvitedToCivilMarriageDay"
+        v-model="isInvitedToCivilMarriageDay"
+      />
+      <label for="isComing">Is coming?</label>
+      <FormChoiceField id="isComing" v-model="isComing" />
       <template v-if="guestTypeInput === `SINGLE`">
         <label for="singleName">Name:</label>
         <input id="singleName" type="text" v-model="singleInput.name" />
-        <label for="singleIsComing">Is coming?</label>
-        <FormChoiceField id="singleIsComing" v-model="singleInput.is_coming" />
         <label for="singlePlusOne">Brings plus one?</label>
         <FormChoiceField id="singlePlusOne" v-model="singleInput.plus_one" />
         <template v-if="singleInput.plus_one === `YES`">
@@ -40,14 +48,10 @@
           type="text"
           v-model="couple.partner2_name"
         />
-        <label for="coupleIsComing">Is coming?</label>
-        <FormChoiceField id="coupleIsComing" v-model="couple.is_coming" />
       </template>
       <template v-else-if="guestTypeInput === `FAMILY`">
         <label for="familyName">Name for salutation:</label>
         <input id="familyName" type="text" v-model="family.name" />
-        <label for="familyIsComing">Is coming?</label>
-        <FormChoiceField id="familyIsComing" v-model="family.is_coming" />
 
         <fieldset
           style="
@@ -135,6 +139,8 @@ import FormChoiceField from "~/components/FormChoiceField.vue";
 import type { FamilyMemberType, GuestFormType } from "~/components/types";
 
 const props = withDefaults(defineProps<GuestFormType>(), {
+  is_coming: `UNDETERMINED`,
+  is_invited_to_civil_marriage_day: false,
   accommodation: () => ({}),
   single: () => ({}),
   couple: () => ({}),
@@ -144,7 +150,11 @@ const props = withDefaults(defineProps<GuestFormType>(), {
 const emit = defineEmits<{ save: [GuestFormType] }>();
 
 const guestTypeInput = ref<GuestType | undefined>(props.guestType);
+const isComing = ref<Choice>(props.is_coming);
 const invitationCodeInput = ref<string | undefined>(props.invitationCode);
+const isInvitedToCivilMarriageDay = ref<boolean>(
+  props.is_invited_to_civil_marriage_day
+);
 
 const accommodationInput = ref<
   Partial<NonNullable<GuestFormType["accommodation"]>>
@@ -195,6 +205,8 @@ function onSaveChanges() {
     guestId: props.guestId,
     guestType: guestTypeInput.value,
     invitationCode: invitationCodeInput.value,
+    is_coming: isComing.value,
+    is_invited_to_civil_marriage_day: isInvitedToCivilMarriageDay.value,
     accommodation: isEmptyObject(accommodationInput.value),
     single: guestTypeInput.value === "SINGLE" ? singleInput.value : undefined,
     couple: guestTypeInput.value === "COUPLE" ? coupleInput.value : undefined,

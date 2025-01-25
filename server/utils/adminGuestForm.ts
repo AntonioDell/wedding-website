@@ -46,6 +46,7 @@ export const useGuestSchema = () => {
   const BaseGuestSchema = z.object({
     guestType: guestTypeEnum,
     is_coming: optionalChoice,
+    is_invited_to_civil_marriage_day: z.boolean().default(false),
     invitationCode: z.string().min(1),
     accommodation: accommodationBaseField
       .optional()

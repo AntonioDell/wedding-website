@@ -19,6 +19,7 @@
             @save="onEditGuestSave"
             :guest-type="guestToEdit.type"
             :guest-id="guestToEdit.guest_id"
+            :is-coming="guestToEdit.is_coming"
             :single="guestToEdit.single"
             :couple="guestToEdit.couple"
             :family="guestToEditFamily"
@@ -76,17 +77,22 @@
                 <span>{{ guest.family.name }}</span>
               </template>
             </td>
-            <td>{{ guest.invitation.code }}</td>
             <td>
-              <template v-if="guest.type === `SINGLE`">
-                <span>{{ guest.single.is_coming }}</span>
-              </template>
-              <template v-else-if="guest.type === `COUPLE`">
-                <span>{{ guest.couple.is_coming }}</span>
-              </template>
-              <template v-else>
-                <span>{{ guest.family.is_coming }}</span>
-              </template>
+              <a :href="`/?code=${guest.invitation.code}`" target="_blank">{{
+                guest.invitation.code
+              }}</a>
+            </td>
+            <td style="text-align: left">
+              <span>Hochzeit: {{ guest.is_coming }}</span
+              ><br />
+              <span
+                >Standesamt:
+                {{
+                  guest.is_invited_to_civil_marriage_day
+                    ? guest.is_coming_to_civil_marriage_day
+                    : "-"
+                }}</span
+              >
             </td>
             <td>
               {{
@@ -103,10 +109,7 @@
                     : "-"
                 }}</span>
               </template>
-              <template v-else-if="guest.type === `COUPLE`">
-                <span>{{ guest.couple.is_coming }}</span>
-              </template>
-              <template v-else>
+              <template v-else-if="guest.type === `FAMILY`">
                 <div>
                   <span>Family members:</span>
                   <ul>

@@ -32,8 +32,7 @@
       <RsvpForm
         v-if="rsvpFormReady"
         id="rsvp"
-        :guest-type="guest.type"
-        :is-coming="guest.is_coming"
+        :guest
         :wedding
         :accommodation="welcomeData.accommodation"
         :single

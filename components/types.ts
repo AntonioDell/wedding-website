@@ -11,6 +11,8 @@ type GuestFormType = {
   guestId?: number;
   guestType?: GuestType;
   invitationCode?: string;
+  is_coming?: Choice;
+  is_invited_to_civil_marriage_day?: boolean;
   accommodation?: {
     is_provided?: boolean;
     type?: AccommodationType;
@@ -19,18 +21,15 @@ type GuestFormType = {
   };
   single?: {
     name?: string;
-    is_coming?: Choice;
     plus_one?: Choice;
     plus_one_name?: string;
   };
   couple?: {
     partner1_name?: string;
     partner2_name?: string;
-    is_coming?: Choice;
   };
   family?: {
     name?: string;
-    is_coming?: Choice;
   };
   family_members?: FamilyMemberType[];
 };

@@ -2,18 +2,18 @@
   <section>
     <header><h2>RSVP</h2></header>
     <RsvpFormSingle
-      v-if="guestType === `SINGLE`"
+      v-if="guest.type === `SINGLE`"
       :single="single!"
       :wedding="wedding"
       :accommodation="accommodation"
-      :is-coming
+      :guest
     />
     <RsvpFormCouple
-      v-else-if="guestType === `COUPLE`"
+      v-else-if="guest.type === `COUPLE`"
       :couple="couple!"
       :wedding="wedding"
       :accommodation="accommodation"
-      :is-coming
+      :guest
     />
     <RsvpFormFamily
       v-else
@@ -21,7 +21,7 @@
       :family-members="familyMembers!"
       :wedding="wedding"
       :accommodation="accommodation"
-      :is-coming
+      :guest
     />
   </section>
 </template>
@@ -31,17 +31,15 @@ import type {
   Couple,
   Family,
   FamilyMember,
-  GuestType,
+  Guest,
   Single,
   Wedding,
-  Choice,
 } from "@prisma/client";
 
-const { guestType, isComing } = defineProps<{
-  guestType: GuestType;
+const { guest } = defineProps<{
+  guest: Guest;
   wedding: Wedding;
   accommodation: Accommodation;
-  isComing: Choice;
   single: Single | undefined;
   couple: Couple | undefined;
   family: Family | undefined;

@@ -12,14 +12,20 @@ export default defineEventHandler(async (event) => {
   });
 
   const { RsvpFormSingleSchema } = useRsvpForm(accommodation.is_provided);
-  const { is_coming, plus_one, plus_one_name, is_accommodation_accepted } =
-    await readValidatedBody(event, RsvpFormSingleSchema.parse);
+  const {
+    is_coming,
+    is_coming_to_civil_marriage_day,
+    plus_one,
+    plus_one_name,
+    is_accommodation_accepted,
+  } = await readValidatedBody(event, RsvpFormSingleSchema.parse);
 
   const transactions: any[] = [
     prisma.guest.update({
       where: { guest_id },
       data: {
         is_coming,
+        is_coming_to_civil_marriage_day,
         single: {
           update: {
             plus_one,
