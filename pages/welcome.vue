@@ -40,7 +40,7 @@
         :family
         :family-members
       />
-      <section id="location">
+      <section id="location" class="narrow-section">
         <header>
           <h2>Unser Schloss Oberndorf</h2>
         </header>
@@ -63,7 +63,7 @@
           <a href="https://schloss-oberndorf.de/">schloss-oberndorf.de</a>
         </p>
       </section>
-      <section id="theme">
+      <section id="theme" class="narrow-section">
         <header>
           <h2>Das Thema - "Dark Fairytale"</h2>
         </header>
@@ -85,7 +85,11 @@
         </p>
         <!-- TODO: Add section about help for costume like fashion-->
       </section>
-      <section id="accommodation" v-if="welcomeData.accommodation.is_provided">
+      <section
+        id="accommodation"
+        v-if="welcomeData.accommodation.is_provided"
+        class="narrow-section"
+      >
         <header><h2>Deine Unterkunft</h2></header>
         <p>
           Ihr seid in der Pension am Mühlbach in einem
@@ -115,7 +119,7 @@
           <a href="https://www.pension-oberndorf.de/">hier</a>.
         </p>
       </section>
-      <section id="accommodation" v-else>
+      <section v-else id="accommodation" class="narrow-section">
         <header><h2>Unterkünfte</h2></header>
         <p>
           Da Schloss Oberndorf in einer ländlicheren Gegend liegt, empfehlen wir
@@ -180,31 +184,45 @@
           </p>
         </AccommodationArticle>
       </section>
-      <section>
-        <header id="itinerary"><h2>Der Ablauf</h2></header>
-        <article>
-          <h3>14:00 Uhr - Sektempfang</h3>
-          <p>Beschreibung</p>
-        </article>
-        <article>
-          <h3>15:00 Uhr - Trauung</h3>
-          <p>Beschreibung</p>
-        </article>
-        <article>
-          <h3>16:00 Uhr - Kaffee & Kuchen</h3>
-          <p>Beschreibung</p>
-        </article>
-        <article>
-          <h3>17:00 Uhr - Essen</h3>
-          <p>Beschreibung</p>
-        </article>
-        <article>
-          <h3>2:00 Uhr - Schluss</h3>
-          <p>
-            Um spätestens 2 Uhr nachts ist die Party vorbei, denn dann beginnt
-            die Nachtruhe.
+      <section id="itinerary" class="narrow-section">
+        <header><h2>Der Ablauf</h2></header>
+        <div class="timeline">
+          <h3 style="grid-area: t1">14:00 Uhr</h3>
+          <h3 style="grid-area: d1">Get Together</h3>
+          <p style="grid-area: p1">
+            Mit einem Kaltgetränk und Häppchen könnt ihr mit den anderen Gästen
+            im Ambiente des Vorhofs von Schloss Oberndorf entspannen und auf den
+            Beginn der Trauung warten.
           </p>
-        </article>
+          <h3 style="grid-area: t2">15:00 Uhr</h3>
+          <h3 style="grid-area: d2">Trauung</h3>
+          <p style="grid-area: p2">
+            Der Hauptteil unseres Hochzeitstags findet im Garten auf der
+            Rückseite des Schlosses statt.
+          </p>
+          <h3 style="grid-area: t3">16:00 Uhr</h3>
+          <h3 style="grid-area: d3">Kaffee & Kuchen</h3>
+          <p style="grid-area: p3">
+            Nach der Trauung stärken wir uns mit Kaffee und Kuchen im
+            Wintergarten.
+          </p>
+          <h3 style="grid-area: t4">17:00 Uhr</h3>
+          <h3 style="grid-area: d4">Essen</h3>
+          <p style="grid-area: p4">
+            Für reichlich Verpflegung ist im Gewölbe des Schlosses gesorgt.
+          </p>
+          <h3 style="grid-area: t5">2:00 Uhr</h3>
+          <h3 style="grid-area: d5">Ende</h3>
+          <p style="grid-area: p5">
+            Um 2 Uhr ist spätestens Schicht im Schacht, da die Nachtruhe im
+            Schloss beginnt.
+          </p>
+          <hr class="seperator" />
+        </div>
+      </section>
+      <section id="gallery">
+        <header><h2>Gallerie</h2></header>
+        <Gallery></Gallery>
       </section>
     </template>
     <div v-else-if="status === `error`">An error occurred: {{ error }}</div>
@@ -288,7 +306,97 @@ watch(
 <style scoped>
 .welcome {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow-y: scroll;
   padding-top: v-bind(navbarHeight);
+}
+
+.narrow-section {
+  max-width: 1080px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(100px, auto);
+  grid-template-areas:
+    "t1 d1"
+    "p1 p1"
+    "t2 d2"
+    "p2 p2"
+    "t3 d3"
+    "p3 p3"
+    "t4 d4"
+    "p4 p4"
+    "t5 d5"
+    "p5 p5";
+}
+.seperator {
+  grid-area: seperator;
+  transform: rotate(90);
+}
+.timeline > h3:nth-of-type(even) {
+  text-align: start;
+}
+.timeline > h3:nth-of-type(odd) {
+  text-align: end;
+}
+
+.timeline > h3:nth-of-type(odd)::after {
+  content: " -";
+}
+.timeline > h3:nth-of-type(even)::before {
+  content: "\00a0 ";
+}
+
+.timeline > p {
+  text-align: start;
+  justify-self: start;
+  margin-top: 0;
+}
+@media screen and (min-width: 813px) {
+  .timeline {
+    grid-row-gap: 0px;
+    grid-column-gap: 0px;
+    grid-template-columns: 1fr 100px 2fr;
+    grid-template-areas:
+      "t1 seperator d1"
+      ". seperator p1"
+      "t2 seperator d2"
+      ". seperator p2"
+      "t3 seperator d3"
+      ". seperator p3"
+      "t4 seperator d4"
+      ". seperator p4"
+      "t5 seperator d5"
+      ". seperator p5";
+  }
+  .seperator {
+    transform: none;
+  }
+  .timeline > h3:nth-of-type(even) {
+    text-align: start;
+  }
+  .timeline > h3:nth-of-type(odd) {
+    text-align: end;
+  }
+  .timeline > h3:nth-of-type(odd)::after {
+    content: none;
+  }
+  .timeline > h3:nth-of-type(even)::before {
+    content: none;
+  }
+
+  .timeline > p {
+    text-align: start;
+    justify-self: start;
+    margin-top: 0;
+  }
 }
 </style>

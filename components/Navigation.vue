@@ -14,12 +14,7 @@
   </Transition>
 </template>
 <script setup lang="ts">
-import {
-  useBrowserLocation,
-  useScroll,
-  useWindowSize,
-  type MaybeElementRef,
-} from "@vueuse/core";
+import { useScroll, useWindowSize } from "@vueuse/core";
 import { toRefs } from "vue";
 
 const links = [
@@ -29,6 +24,7 @@ const links = [
   { to: "#theme", label: "Thema" },
   { to: "#accommodation", label: "Unterkünfte" },
   { to: "#itinerary", label: "Ablauf" },
+  { to: "#gallery", label: "Gallerie" },
 ];
 
 const router = useRouter();

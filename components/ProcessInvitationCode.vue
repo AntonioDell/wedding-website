@@ -61,3 +61,8 @@ watch(
   { immediate: true }
 );
 </script>
+<style scoped>
+p {
+  font-size: 2rem;
+}
+</style>

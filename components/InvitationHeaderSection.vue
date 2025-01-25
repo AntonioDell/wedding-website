@@ -61,10 +61,26 @@ section header {
   color: black;
   background-color: var(--yellow);
 }
+
+p,
+h1 {
+  padding: 0.5rem 0.25rem;
+}
+
 section p strong {
   color: white;
-  border: 4px solid black;
+  border: 2px solid black;
   color: black;
-  padding: 4px;
+  padding: 2px;
+  white-space: nowrap;
+}
+@media screen and (min-width: 813px) {
+  section p strong {
+    color: white;
+    border: 4px solid black;
+    color: black;
+    padding: 4px;
+    white-space: nowrap;
+  }
 }
 </style>

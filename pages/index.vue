@@ -1,5 +1,13 @@
 <template>
-  <div>
+  <div
+    style="
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      justify-content: center;
+      align-items: center;
+    "
+  >
     <ProcessInvitationCode
       :code
       @code-is-valid="onCodeIsValid"
