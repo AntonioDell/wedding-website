@@ -58,6 +58,7 @@
             <th>Is coming?</th>
             <th>Accommodation</th>
             <th>Additonal people</th>
+            <th>Note</th>
             <th></th>
           </tr>
         </thead>
@@ -128,6 +129,7 @@
                 </div>
               </template>
             </td>
+            <td>{{ guest.note }}</td>
             <td>
               <div
                 style="

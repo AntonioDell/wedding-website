@@ -36,5 +36,14 @@ export const useRsvpForm = (isAccommodationProvided: boolean = false) => {
     is_coming: mandatoryChoice,
     is_coming_to_civil_marriage_day: optionalChoice,
   });
-  return { RsvpFormSingleSchema, RsvpFormCoupleSchema, RsvpFormFamilySchema };
+
+  const NoteFormSchema = z.object({
+    note: z.string().max(500).default(""),
+  });
+  return {
+    RsvpFormSingleSchema,
+    RsvpFormCoupleSchema,
+    RsvpFormFamilySchema,
+    NoteFormSchema,
+  };
 };

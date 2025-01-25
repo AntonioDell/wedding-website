@@ -45,6 +45,11 @@
         :family
         :family-members
       />
+      <NoteForm
+        v-if="rsvpFormReady"
+        :note="guest.note"
+        class="narrow-section"
+      />
       <section
         v-if="guest.is_invited_to_civil_marriage_day"
         id="civil"

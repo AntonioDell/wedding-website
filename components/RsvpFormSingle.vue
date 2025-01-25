@@ -88,6 +88,7 @@
           name="plusOnePerson"
           v-model="plusOnePerson"
           placeholder="Bitte Vor- und Nachnamen angeben"
+          style="width: 100%"
         /></fieldset
     ></Transition>
     <Transition name="slide">

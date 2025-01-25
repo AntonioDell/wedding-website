@@ -33,18 +33,18 @@ model Wedding {
 
 // New models:
 model Guest {
-  guest_id                         Int       @id @default(autoincrement())
-  type                             GuestType @default(SINGLE)
-  is_coming                        Choice    @default(UNDETERMINED)
-  is_invited_to_civil_marriage_day Boolean   @default(false)
-  is_coming_to_civil_marriage_day  Choice    @default(UNDETERMINED)
-
+  guest_id                         Int            @id @default(autoincrement())
+  type                             GuestType      @default(SINGLE)
+  is_coming                        Choice         @default(UNDETERMINED)
+  is_invited_to_civil_marriage_day Boolean        @default(false)
+  is_coming_to_civil_marriage_day  Choice         @default(UNDETERMINED)
+  note                             String         @default("")
   // Relationships
-  single        Single?
-  couple        Couple?
-  family        Family?
-  invitation    Invitation?
-  accommodation Accommodation?
+  single                           Single?
+  couple                           Couple?
+  family                           Family?
+  invitation                       Invitation?
+  accommodation                    Accommodation?
 }
 
 enum GuestType {

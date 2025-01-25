@@ -35,3 +35,8 @@ fieldset {
   opacity: 0;
   transform: translateY(-30px);
 }
+
+input,
+textarea {
+  font-size: 1rem;
+}
