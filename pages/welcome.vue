@@ -1,7 +1,12 @@
 <template>
   <div id="welcome" class="welcome">
-    <Navigation ref="navbar" />
     <template v-if="welcomeData && guest && wedding">
+      <Navigation
+        ref="navbar"
+        :is_invited_to_civil_marriage_day="
+          guest?.is_invited_to_civil_marriage_day
+        "
+      />
       <InvitationHeaderSection
         v-if="wedding && rsvpFormReady"
         id="top"
@@ -40,6 +45,50 @@
         :family
         :family-members
       />
+      <section
+        v-if="guest.is_invited_to_civil_marriage_day"
+        id="civil"
+        class="narrow-section"
+      >
+        <header>
+          <h2>Die standesamtliche Trauung</h2>
+        </header>
+        <p>
+          Unsere standesamtliche Trauung im kleinen Kreis findet am
+          {{
+            dateOnlyFormat.format(dayjs(wedding.civil_marriage_date).toDate())
+          }}
+          in Bonn statt.
+        </p>
+        <p>
+          Wir würden uns sehr freuen wenn du/ihr dabei wärt, aber da wir unsere
+          eigentliche Hochzeit am
+          {{ dateOnlyFormat.format(dayjs(wedding.date).toDate()) }} als die
+          wichtigere sehen, ist es nicht schlimm, falls du/ihr bei der
+          Standesamtlichen nicht dabei sein könnt.
+        </p>
+        <p>
+          Die standesamtliche Trauung wird im Rathaus Hardtberg um
+          {{
+            timeOnlyFormat.format(dayjs(wedding.civil_marriage_date).toDate())
+          }}
+          Uhr stattfinden. Danach werden wir in das Lokal Haus Müllestumpe
+          einkehren und zu Mittag essen. Das Lokal ist bis Nachts für uns
+          reserviert.
+        </p>
+        <ul>
+          <li>
+            <LocationLink lat="50.716278" long="7.051489">
+              Rathaus Hardtberg: Villemombler Str. 1, 53123 Bonn
+            </LocationLink>
+          </li>
+          <li>
+            <LocationLink lat="50.757106" long="7.080883">
+              Haus Müllestumpe: An d. Rheindorfer Burg 22, 53117 Bonn
+            </LocationLink>
+          </li>
+        </ul>
+      </section>
       <section id="location" class="narrow-section">
         <header>
           <h2>Unser Schloss Oberndorf</h2>
@@ -241,11 +290,12 @@ import type {
   Wedding,
 } from "@prisma/client";
 import { useElementSize } from "@vueuse/core";
+import dayjs from "dayjs";
 import { Countdown } from "vue3-flip-countdown";
 
 const navbarRef = useTemplateRef("navbar");
 const { height: navbarHeight } = useElementSize(navbarRef);
-const { dateOnlyFormat } = useFormat();
+const { dateOnlyFormat, timeOnlyFormat } = useFormat();
 const { $authenticatedFetch } = useNuxtApp();
 
 const {

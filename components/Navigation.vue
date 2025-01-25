@@ -17,15 +17,25 @@
 import { useScroll, useWindowSize } from "@vueuse/core";
 import { toRefs } from "vue";
 
-const links = [
-  { to: "#top", label: "Zum Anfang" },
-  { to: "#rsvp", label: "RSVP" },
-  { to: "#location", label: "Schloss Oberndorf" },
-  { to: "#theme", label: "Thema" },
-  { to: "#accommodation", label: "Unterkünfte" },
-  { to: "#itinerary", label: "Ablauf" },
-  { to: "#gallery", label: "Gallerie" },
-];
+const { is_invited_to_civil_marriage_day } = defineProps<{
+  is_invited_to_civil_marriage_day: boolean;
+}>();
+
+const links = computed(() => {
+  const list = [
+    { to: "#top", label: "Zum Anfang" },
+    { to: "#rsvp", label: "RSVP" },
+    { to: "#location", label: "Schloss Oberndorf" },
+    { to: "#theme", label: "Thema" },
+    { to: "#accommodation", label: "Unterkünfte" },
+    { to: "#itinerary", label: "Ablauf" },
+    { to: "#gallery", label: "Gallerie" },
+  ];
+  if (is_invited_to_civil_marriage_day) {
+    list.splice(2, 0, { to: "#civil", label: "Standesamt" });
+  }
+  return list;
+});
 
 const router = useRouter();
 const { width } = useWindowSize();
