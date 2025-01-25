@@ -1,4 +1,4 @@
-import { GuestType, AccommodationType } from "@prisma/client";
+import { GuestType, AccommodationType, Hotel } from "@prisma/client";
 import { z } from "zod";
 
 export const useGuestSchema = () => {
@@ -10,9 +10,12 @@ export const useGuestSchema = () => {
     GuestType.FAMILY,
   ]);
 
+  const hotelEnum = z.enum([Hotel.PENSION, Hotel.APARTHOTEL]);
+
   const accommodationBaseField = z.object({
     is_provided: z.boolean(),
     is_accepted: optionalChoice,
+    hotel: hotelEnum.default("PENSION"),
     type: z
       .enum([
         AccommodationType.NO_BED,
@@ -56,6 +59,7 @@ export const useGuestSchema = () => {
           is_provided: false,
           nights_included: 0,
           type: AccommodationType.NO_BED,
+          hotel: "PENSION",
         } satisfies typeof accommodationBaseField._input;
       })
       .refine((value) => {

@@ -97,7 +97,7 @@
             <td>
               {{
                 guest.accommodation.is_provided
-                  ? `Accepted (${guest.accommodation.type}, ${guest.accommodation.nights_included} nights): ${guest.accommodation.is_accepted}`
+                  ? `Accepted (${guest.accommodation.hotel}, ${guest.accommodation.type}, ${guest.accommodation.nights_included} nights): ${guest.accommodation.is_accepted}`
                   : "-"
               }}
             </td>
@@ -213,6 +213,7 @@ async function onEditGuestSave(guest: GuestFormType) {
 
   guestToEdit.value = undefined;
 }
+
 async function onDeleteGuest(guestId: number) {
   const resp = await $authenticatedFetch(`/api/admin/guest/${guestId}`, {
     method: "DELETE",

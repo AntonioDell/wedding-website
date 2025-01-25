@@ -30,6 +30,7 @@ export default defineEventHandler(async (event) => {
       },
       accommodation: {
         create: {
+          hotel: accommodation.hotel,
           is_provided: accommodation.is_provided,
           type: accommodation.is_provided ? accommodation.type : "NO_BED",
           nights_included: accommodation.is_provided

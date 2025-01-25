@@ -107,9 +107,15 @@ model Accommodation {
   type             AccommodationType @default(NO_BED)
   nights_included  Int               @default(0) @db.SmallInt
   is_accepted      Choice            @default(UNDETERMINED)
+  hotel            Hotel             @default(PENSION)
 
   // Relationships
   guest Guest @relation(fields: [guest_id], references: [guest_id], onDelete: Cascade)
+}
+
+enum Hotel {
+  PENSION
+  APARTHOTEL
 }
 
 enum Choice {

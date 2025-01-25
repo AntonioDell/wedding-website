@@ -116,6 +116,12 @@
           <option :value="`SINGLE_BED`">Single Bed</option>
           <option :value="`TWIN_BED`">Twin Bed</option>
         </select>
+        <label for="accommodationType">Hotel:</label>
+        <select id="accommodationType" v-model="accommodationInput.hotel">
+          <option :value="undefined">--Select--</option>
+          <option :value="`PENSION`">Pension Oberndorf</option>
+          <option :value="`APARTHOTEL`">Aparthotel Donaustern</option>
+        </select>
         <label for="accommodationNightsIncluded">Nights included:</label>
         <input
           for="accommodationNightsIncluded"

@@ -1,4 +1,9 @@
-import type { AccommodationType, Choice, GuestType } from "@prisma/client";
+import type {
+  AccommodationType,
+  Choice,
+  GuestType,
+  Hotel,
+} from "@prisma/client";
 
 type FamilyMemberType = Partial<{
   member_id?: number;
@@ -18,6 +23,7 @@ type GuestFormType = {
     type?: AccommodationType;
     nights_included?: number;
     is_accepted?: Choice;
+    hotel?: Hotel;
   };
   single?: {
     name?: string;
@@ -34,4 +40,4 @@ type GuestFormType = {
   family_members?: FamilyMemberType[];
 };
 
-export type { GuestFormType, FamilyMemberType };
+export type { FamilyMemberType, GuestFormType };

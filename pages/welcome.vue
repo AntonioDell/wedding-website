@@ -76,15 +76,25 @@
           einkehren und zu Mittag essen. Das Lokal ist bis Nachts für uns
           reserviert.
         </p>
+        <p>
+          Solltet ihr für den Tag eine Unterkunft benötigen, könnt ihr entweder
+          in Haus Müllestumpe selbst ein Zimmer buchen über die
+          <a href="https://via.eviivo.com/Mullestumpe53117" target="_blank"
+            >offizielle Website</a
+          >
+          oder eine anderes Hotel/AriBnb in der Nähe suchen.
+        </p>
         <ul>
           <li>
+            Rathaus Hardtberg:
             <LocationLink lat="50.716278" long="7.051489">
-              Rathaus Hardtberg: Villemombler Str. 1, 53123 Bonn
+              Villemombler Str. 1, 53123 Bonn
             </LocationLink>
           </li>
           <li>
+            Haus Müllestumpe:
             <LocationLink lat="50.757106" long="7.080883">
-              Haus Müllestumpe: An d. Rheindorfer Burg 22, 53117 Bonn
+              An d. Rheindorfer Burg 22, 53117 Bonn
             </LocationLink>
           </li>
         </ul>
@@ -140,33 +150,60 @@
         class="narrow-section"
       >
         <header><h2>Deine Unterkunft</h2></header>
-        <p>
-          Ihr seid in der Pension am Mühlbach in einem
-          {{
-            welcomeData.accommodation.type === `TWIN_BED`
-              ? "Doppelzimmer"
-              : "Einzelzimmer"
-          }}
-          für {{ welcomeData.accommodation.nights_included }} Nächte
-          untergebracht. Das ist die Unterkunft die im vorhinein für das
-          Brautpaar, nahe Familie und Trauzeugen reserviert wurde.
-        </p>
-        <p>
-          Solltet ihr euch selbst eine andere Unterkunft besorgen, sagt uns
-          bitte vorher bescheid, damit wir die Reservierung in der Pension
-          aufheben können.
-        </p>
-        <p>
-          Die Adresse lautet:<br />
-          <LocationLink lat="48.668162" long="10.869897">
-            Fischerstraße 8<br />
-            Oberndorf am Lech
-          </LocationLink>
-        </p>
-        <p>
-          Mehr Infos zur Unterkunft findet ihr
-          <a href="https://www.pension-oberndorf.de/">hier</a>.
-        </p>
+        <template v-if="welcomeData.accommodation.hotel === `PENSION`">
+          <p>
+            Ihr seid in der Pension am Mühlbach in einem
+            {{
+              welcomeData.accommodation.type === `TWIN_BED`
+                ? "Doppelzimmer"
+                : "Einzelzimmer"
+            }}
+            für {{ welcomeData.accommodation.nights_included }} Nächte
+            untergebracht. Das ist die Unterkunft die im vorhinein für das
+            Brautpaar, nahe Familie und Trauzeugen reserviert wurde.
+          </p>
+          <p>
+            Solltet ihr euch selbst eine andere Unterkunft besorgen, sagt uns
+            bitte vorher bescheid, damit wir die Reservierung in der Pension
+            aufheben können.
+          </p>
+          <p>
+            Die Adresse lautet:<br />
+            <LocationLink lat="48.668162" long="10.869897">
+              Fischerstraße 8<br />
+              Oberndorf am Lech
+            </LocationLink>
+          </p>
+          <p>
+            Mehr Infos zur Unterkunft findet ihr
+            <a href="https://www.pension-oberndorf.de/">hier</a>.
+          </p>
+        </template>
+        <template v-else>
+          <p>
+            Ihr seid im Aparthotel Donaustern nur wenige Auto-Minuten von
+            Schloss Oberndorf entfernt in einem Doppelzimmer für
+            {{ welcomeData.accommodation.nights_included }} Nächte
+            untergebracht. Am Abend der Hochzeit werden genug Taxis zur
+            Verfügung stehen, um binnen kurzer Zeit zum Hotel zu kommen.
+          </p>
+          <p>
+            Solltet ihr euch selbst eine andere Unterkunft besorgen, sagt uns
+            bitte vorher bescheid, damit wir die Reservierung im Hotel aufheben
+            können.
+          </p>
+          <p>
+            Die Adresse lautet:<br />
+            <LocationLink lat="48.669908" long="48.669908">
+              Rudolf-Diesel-Str. 2<br />
+              86663 Asbach-Bäumenheim
+            </LocationLink>
+          </p>
+          <p>
+            Mehr Infos zur Unterkunft findet ihr
+            <a href="https://www.pension-oberndorf.de/">hier</a>.
+          </p>
+        </template>
       </section>
       <section v-else id="accommodation" class="narrow-section">
         <header><h2>Unterkünfte</h2></header>
@@ -193,6 +230,11 @@
             Das Hotel ist nur 10 Minuten mit dem Auto entfernt und bietet mit
             den Business Appartments für zwei Personen alle Annehmlichkeiten die
             man sich für eine Nacht wünschen kann.
+          </p>
+          <p>
+            Auch für mehr als zwei Personen sind Appartments vorhanden, diese
+            findet man aber nicht auf der Website. Ruft einfach im Hotel an
+            falls ihr daran interesse habt.
           </p>
           <template #address>
             Rudolf-Diesel-Str. 2<br />
