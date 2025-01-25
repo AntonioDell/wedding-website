@@ -24,16 +24,20 @@ model Admin {
 }
 
 model Wedding {
-  id          Int      @id @default(autoincrement())
-  husbandToBe String
-  wifeToBe    String
-  date        DateTime @default(now())
+  id                  Int      @id @default(autoincrement())
+  husbandToBe         String
+  wifeToBe            String
+  date                DateTime @default(now())
+  civil_marriage_date DateTime @default(now())
 }
 
 // New models:
 model Guest {
-  guest_id Int       @id @default(autoincrement())
-  type     GuestType @default(SINGLE)
+  guest_id                         Int       @id @default(autoincrement())
+  type                             GuestType @default(SINGLE)
+  is_coming                        Choice    @default(UNDETERMINED)
+  is_invited_to_civil_marriage_day Boolean   @default(false)
+  is_coming_to_civil_marriage_day  Choice    @default(UNDETERMINED)
 
   // Relationships
   single        Single?
@@ -52,7 +56,6 @@ enum GuestType {
 model Single {
   single_id     Int     @id
   name          String
-  is_coming     Choice  @default(UNDETERMINED)
   plus_one      Choice  @default(UNDETERMINED)
   plus_one_name String?
 
@@ -64,7 +67,6 @@ model Couple {
   couple_id     Int    @id
   partner1_name String
   partner2_name String
-  is_coming     Choice @default(UNDETERMINED)
 
   // Relationships
   guest Guest @relation(fields: [couple_id], references: [guest_id], onDelete: Cascade)
@@ -73,7 +75,6 @@ model Couple {
 model Family {
   family_id Int    @id
   name      String
-  is_coming Choice @default(UNDETERMINED)
 
   // Relationships
   guest          Guest          @relation(fields: [family_id], references: [guest_id], onDelete: Cascade)

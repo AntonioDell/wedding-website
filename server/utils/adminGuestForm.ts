@@ -25,7 +25,6 @@ export const useGuestSchema = () => {
 
   const singleField = z.object({
     name: z.string().min(1),
-    is_coming: optionalChoice,
     plus_one: optionalChoice,
     plus_one_name: z.string().min(1).optional(),
   });
@@ -33,7 +32,6 @@ export const useGuestSchema = () => {
   const coupleField = z.object({
     partner1_name: z.string().min(1),
     partner2_name: z.string().min(1),
-    is_coming: optionalChoice,
   });
 
   const familyMembersField = z.object({
@@ -43,11 +41,11 @@ export const useGuestSchema = () => {
 
   const familyField = z.object({
     name: z.string().min(1),
-    is_coming: optionalChoice,
   });
 
   const BaseGuestSchema = z.object({
     guestType: guestTypeEnum,
+    is_coming: optionalChoice,
     invitationCode: z.string().min(1),
     accommodation: accommodationBaseField
       .optional()
@@ -140,6 +138,7 @@ export const useGuestSchema = () => {
         return existingGuest !== null;
       }),
     guestType: guestTypeEnum.optional(),
+    is_coming: optionalChoice,
     invitationCode: z.string().min(1).optional(),
     accommodation: accommodationBaseField
       .extend({
@@ -159,7 +158,6 @@ export const useGuestSchema = () => {
       .extend({
         name: z.string().min(1).optional(),
       })
-
       .optional()
       .refine((value) => {
         if (value && value.plus_one === "YES") return !!value.plus_one_name;

@@ -18,8 +18,8 @@ export default defineEventHandler(async (event) => {
   );
 
   const transactions: any[] = [
-    prisma.couple.update({
-      where: { couple_id: guest_id },
+    prisma.guest.update({
+      where: { guest_id },
       data: {
         is_coming,
       },

@@ -8,6 +8,7 @@ export default defineEventHandler(async (event) => {
   const { CreateGuestSchema } = useGuestSchema();
   const {
     guestType,
+    is_coming,
     invitationCode,
     accommodation,
     single,
@@ -19,6 +20,7 @@ export default defineEventHandler(async (event) => {
   await prisma.guest.create({
     data: {
       type: guestType,
+      is_coming,
       invitation: {
         create: {
           code: invitationCode,
@@ -39,7 +41,6 @@ export default defineEventHandler(async (event) => {
           ? {
               create: {
                 name: single.name,
-                is_coming: single.is_coming,
                 plus_one: single.plus_one,
                 plus_one_name: single.plus_one_name,
               },
@@ -51,7 +52,6 @@ export default defineEventHandler(async (event) => {
               create: {
                 partner1_name: couple.partner1_name,
                 partner2_name: couple.partner2_name,
-                is_coming: couple.is_coming,
               },
             }
           : undefined,
@@ -60,7 +60,6 @@ export default defineEventHandler(async (event) => {
           ? {
               create: {
                 name: family.name,
-                is_coming: family.is_coming,
                 family_members: family_members
                   ? {
                       createMany: {

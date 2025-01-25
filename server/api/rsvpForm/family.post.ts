@@ -12,8 +12,8 @@ export default defineEventHandler(async (event) => {
   );
 
   const transactions: any[] = [
-    prisma.family.update({
-      where: { family_id: guest_id },
+    prisma.guest.update({
+      where: { guest_id },
       data: {
         is_coming,
       },

@@ -8,6 +8,7 @@ export default defineEventHandler(async (event) => {
   const { PatchGuestSchema } = useGuestSchema();
   const {
     guestId,
+    is_coming,
     guestType,
     invitationCode,
     accommodation,
@@ -23,6 +24,7 @@ export default defineEventHandler(async (event) => {
       where: { guest_id: guestId },
       data: {
         type: guestType,
+        is_coming,
         invitation: invitationCode
           ? { update: { code: invitationCode } }
           : undefined,

@@ -64,7 +64,7 @@
       style="align-self: center"
       :disabled="isLoading"
     >
-      {{ couple.is_coming === `YES` ? "Zusage aktualisieren" : "Zusagen" }}
+      {{ isComing === `YES` ? "Zusage aktualisieren" : "Zusagen" }}
     </button>
     <button
       v-else-if="rsvpRespond === `NO`"
@@ -72,9 +72,9 @@
       style="align-self: center"
       :disabled="isLoading"
     >
-      {{ couple.is_coming === `NO` ? "Absage aktualisieren" : "Absagen" }}
+      {{ isComing === `NO` ? "Absage aktualisieren" : "Absagen" }}
     </button>
-    <p v-else-if="rsvpRespond === `UNDETERMINED` && couple.is_coming === `NO`">
+    <p v-else-if="rsvpRespond === `UNDETERMINED` && isComing === `NO`">
       Es ist sehr schade, dass ihr nicht kommen könnt. Falls ihr es euch anders
       überlegt, könnt ihr eure Absage in diesem Formular bis zum
       {{
@@ -92,13 +92,14 @@ import type { Accommodation, Choice, Couple, Wedding } from "@prisma/client";
 import dayjs from "dayjs";
 import { FetchError } from "ofetch";
 
-const { wedding, couple, accommodation } = defineProps<{
+const { wedding, couple, accommodation, isComing } = defineProps<{
   wedding: Wedding;
   couple: Couple;
   accommodation: Accommodation;
+  isComing: Choice;
 }>();
 
-const rsvpRespond = ref<Choice>(couple.is_coming);
+const rsvpRespond = ref<Choice>(isComing);
 const accommodationChoice = ref<Choice>(accommodation.is_accepted);
 
 const { dateOnlyFormat } = useFormat();

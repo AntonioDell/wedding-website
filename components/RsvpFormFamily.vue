@@ -36,7 +36,7 @@
       </fieldset>
     </Transition>
     <button
-      v-if="rsvpRespond === `YES` && family.is_coming !== 'YES'"
+      v-if="rsvpRespond === `YES` && isComing !== 'YES'"
       type="submit"
       style="align-self: center"
       :disabled="isLoading"
@@ -44,14 +44,14 @@
       Zusagen
     </button>
     <button
-      v-else-if="rsvpRespond === `NO` && family.is_coming !== 'NO'"
+      v-else-if="rsvpRespond === `NO` && isComing !== 'NO'"
       type="submit"
       style="align-self: center"
       :disabled="isLoading"
     >
       Absagen
     </button>
-    <p v-else-if="rsvpRespond === `UNDETERMINED` && family.is_coming === `NO`">
+    <p v-else-if="rsvpRespond === `UNDETERMINED` && isComing === `NO`">
       Es ist sehr schade, dass ihr nicht kommen könnt. Falls ihr es euch anders
       überlegt, könnt ihr eure Absage in diesem Formular bis zum
       {{
@@ -75,14 +75,15 @@ import type {
 import dayjs from "dayjs";
 import { FetchError } from "ofetch";
 
-const { wedding, family } = defineProps<{
+const { wedding, family, isComing } = defineProps<{
   wedding: Wedding;
   family: Family;
   familyMembers: FamilyMember[];
   accommodation: Accommodation;
+  isComing: Choice;
 }>();
 
-const rsvpRespond = ref<Choice>(family.is_coming);
+const rsvpRespond = ref<Choice>(isComing);
 
 const { dateOnlyFormat } = useFormat();
 const { $authenticatedFetch } = useNuxtApp();
