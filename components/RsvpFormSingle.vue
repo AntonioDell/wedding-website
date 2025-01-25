@@ -105,7 +105,12 @@
               ? `${accommodation.nights_included} Nächte`
               : `eine Nacht`
           }}
-          in der Pension ...
+          {{
+            accommodation.hotel === `PENSION`
+              ? "in der Pension"
+              : "im Aparthotel"
+          }}
+          ...
         </legend>
         <p>
           <input

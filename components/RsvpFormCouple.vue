@@ -57,7 +57,13 @@
     <Transition name="slide">
       <fieldset v-if="rsvpRespond === `YES` && accommodation.is_provided">
         <legend>
-          Wir werden die Reservierung der Pension für
+          Wir werden die Reservierung
+          {{
+            accommodation.hotel === `PENSION`
+              ? "der Pension"
+              : "des Aparthotels"
+          }}
+          für
           {{
             accommodation.nights_included > 1
               ? `${accommodation.nights_included} Nächte`
