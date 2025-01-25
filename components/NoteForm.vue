@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="onSubmit">
     <fieldset>
-      <legend>Nachricht an Brautpaar</legend>
+      <legend>Nachricht an das Brautpaar</legend>
       <label for="note"
         >Falls ihr noch irgendetwas sagen oder mitteilen möchtet, Fragen da sind
         oder irgendetwas anderes, könnt ihr in folgendem Feld eine Nachricht
@@ -15,6 +15,9 @@
         maxlength="500"
         placeholder="Hier Nachricht schreiben"
       ></textarea>
+      <span style="font-size: 0.7rem"
+        >{{ noteInput.length }} von 500 Zeichen verbraucht</span
+      >
     </fieldset>
     <button type="submit" :disabled="isLoading" style="align-self: center">
       Nachricht speichern
