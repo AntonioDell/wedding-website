@@ -407,6 +407,7 @@ watch(
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .narrow-section {
