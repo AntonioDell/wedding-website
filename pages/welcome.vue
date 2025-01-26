@@ -104,9 +104,9 @@
           </li>
         </ul>
       </section>
-      <section id="location" class="narrow-section">
+      <section class="narrow-section">
         <header>
-          <h2>Unser Schloss Oberndorf</h2>
+          <h2 id="location">Unser Schloss Oberndorf</h2>
         </header>
         <p>
           Das Hochzeitsfest wird im bezaubernden Schloss Oberndorf stattfinden.
@@ -127,7 +127,8 @@
           <a href="https://schloss-oberndorf.de/">schloss-oberndorf.de</a>
         </p>
       </section>
-      <section id="theme" class="narrow-section">
+      <section class="narrow-section">
+        <div id="theme"><!--Empty div for safari scrolling... fml --></div>
         <header>
           <h2>Das Thema - "Dark Fairytale"</h2>
         </header>

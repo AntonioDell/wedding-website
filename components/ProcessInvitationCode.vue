@@ -64,5 +64,6 @@ watch(
 <style scoped>
 p {
   font-size: 2rem;
+  text-align: center;
 }
 </style>
