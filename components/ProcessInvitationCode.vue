@@ -1,7 +1,7 @@
 <template>
-  <p v-if="showProcessing">Checking your invitation...</p>
-  <p v-else-if="status === `success`">Please step right in.</p>
-  <p v-else-if="status === `error`">You are not invited.</p>
+  <p v-if="showProcessing">Deine Einladung wird geprüft...</p>
+  <p v-else-if="status === `success`">Herzlich willkommen!</p>
+  <p v-else-if="status === `error`">Du bist nicht eingeladen.</p>
 </template>
 <script setup lang="ts">
 import type { AsyncDataRequestStatus } from "#app";

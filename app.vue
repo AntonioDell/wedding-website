@@ -30,6 +30,7 @@ body {
 }
 
 body {
+  -webkit-overflow-scrolling: touch;
   overflow-x: hidden;
   overflow-y: scroll;
   background: url("/images/dark_forest.jpg") no-repeat fixed 0 0 / cover,
