@@ -87,7 +87,7 @@
           <a href="https://via.eviivo.com/Mullestumpe53117" target="_blank"
             >offizielle Website</a
           >
-          oder eine anderes Hotel/AriBnb in der Nähe suchen.
+          oder eine anderes Hotel/AirBnB in der Nähe suchen.
         </p>
         <ul>
           <li>
@@ -406,7 +406,6 @@ watch(
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: scroll;
   padding-top: v-bind(navbarHeight);
 }
 
@@ -437,6 +436,7 @@ h2 {
 .seperator {
   grid-area: seperator;
   transform: rotate(90);
+  display: none;
 }
 .timeline > h3:nth-of-type(even) {
   text-align: start;
@@ -475,6 +475,7 @@ h2 {
       ". seperator p5";
   }
   .seperator {
+    display: block;
     transform: none;
   }
   .timeline > h3:nth-of-type(even) {
