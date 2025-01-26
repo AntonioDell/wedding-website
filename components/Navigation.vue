@@ -114,7 +114,6 @@ function onDialogCloseButtonClick() {
 }
 </script>
 <style scoped>
-@import url("~/assets/theme.css");
 .navbar {
   position: fixed;
   top: 0;
@@ -133,8 +132,8 @@ function onDialogCloseButtonClick() {
 
 .navbutton {
   position: fixed;
-  bottom: 5%;
-  right: 5%;
+  right: 0;
+  margin: 1rem;
   width: 24px;
   height: 24px;
   color: white;
@@ -161,9 +160,9 @@ function onDialogCloseButtonClick() {
 }
 .dialog-close-btn {
   position: fixed;
+  right: 0;
   z-index: 100;
-  top: 5%;
-  right: 5%;
+  margin: 1rem;
   width: 24px;
   height: 24px;
   border: 2px solid black;
