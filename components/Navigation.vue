@@ -101,7 +101,7 @@ onMounted(() => {
 });
 
 function onLinkClicked(elementId: string) {
-  const el = document.getElementById(elementId);
+  const el = document.getElementById(`el-${elementId}`);
   el?.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
   dialogRef.value?.close();
 }
