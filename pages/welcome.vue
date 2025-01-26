@@ -406,7 +406,6 @@ watch(
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: v-bind(navbarHeight);
 }
 
 .narrow-section {
@@ -458,6 +457,10 @@ h2 {
   margin-top: 0;
 }
 @media screen and (min-width: 813px) {
+  .welcome {
+    padding-top: v-bind(navbarHeight);
+  }
+
   .timeline {
     grid-row-gap: 0px;
     grid-column-gap: 0px;

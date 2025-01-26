@@ -2,9 +2,9 @@
   --dark-purple: #3c096c;
   --purple: #5a189a;
   --light-purple: #9d4edd;
-  --yellow: #ffc880;
-  --orange: #ff9100;
+  --accent: #c4aead;
   --small-screen: 812px;
+
   font-family: "Mada";
 }
 
@@ -91,7 +91,7 @@ button:active {
 }
 
 a {
-  color: var(--yellow);
+  color: white;
 }
 
 a:visited {
@@ -99,5 +99,5 @@ a:visited {
 }
 
 a:hover {
-  color: var(--light-purple);
+  color: var(--purple);
 }

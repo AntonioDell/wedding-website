@@ -56,10 +56,10 @@ section {
 
 section p,
 section header {
-  --text-border-color: var(--yellow);
+  --text-border-color: var(--accent);
   --text-border-size: 1px;
   color: black;
-  background-color: var(--yellow);
+  background-color: var(--accent);
 }
 
 p,

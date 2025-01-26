@@ -1,21 +1,65 @@
 <template>
-  <Transition name="slide-down">
-    <nav v-if="isNavigationVisible" class="navbar">
-      <template v-for="link in links" :key="link.to"
-        ><span
-          >&#9001;
-          <NuxtLink :to="link.to">
-            {{ link.label }}
-          </NuxtLink>
-          &#9002;</span
-        ></template
+  <div v-if="isSmallScreen">
+    <button id="navbutton" class="navbutton" @click="onNavigationButtonClicked">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24px"
+        width="24px"
+        viewBox="0 -960 960 960"
+        fill="undefined"
       >
-    </nav>
-  </Transition>
+        <path
+          d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"
+        />
+      </svg>
+    </button>
+    <dialog ref="dialogRef" class="test">
+      <button
+        autofocus
+        @click="onDialogCloseButtonClick"
+        class="dialog-close-btn"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          width="24px"
+          viewBox="0 -960 960 960"
+          fill="undefined"
+        >
+          <path
+            d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+          />
+        </svg>
+      </button>
+      <div class="sidemenu">
+        <div class="sidemenu-links">
+          <template v-for="link in links" :key="link.to">
+            <span style="color: black">
+              &#9001;
+              <NuxtLink :to="link.to">
+                {{ link.label }}
+              </NuxtLink>
+              &#9002;
+            </span>
+          </template>
+        </div>
+      </div>
+    </dialog>
+  </div>
+  <nav v-else class="navbar">
+    <template v-for="link in links" :key="link.to">
+      <span style="color: black">
+        &#9001;
+        <NuxtLink :to="link.to">
+          {{ link.label }}
+        </NuxtLink>
+        &#9002;
+      </span>
+    </template>
+  </nav>
 </template>
 <script setup lang="ts">
-import { useScroll, useWindowSize } from "@vueuse/core";
-import { toRefs } from "vue";
+import { useWindowSize } from "@vueuse/core";
 
 const { is_invited_to_civil_marriage_day } = defineProps<{
   is_invited_to_civil_marriage_day: boolean;
@@ -40,25 +84,14 @@ const links = computed(() => {
 const router = useRouter();
 const { width } = useWindowSize();
 const welcomeRef = ref<HTMLElement | null>(null);
-const { isScrolling, directions } = useScroll(welcomeRef);
-const { top: toTop } = toRefs(directions);
 
-const forceNavigationHidden = ref<boolean>(false);
-const isNavigationVisible = computed<boolean>((oldValue) => {
-  if (width.value > 812) return true;
-  if (forceNavigationHidden.value) return false;
-  else if (!isScrolling.value) return oldValue === undefined ? true : oldValue;
-  return toTop.value;
-});
+const isSmallScreen = computed(() => width.value <= 812);
+const dialogRef = useTemplateRef("dialogRef");
 
 watch(router.currentRoute, (newValue) => {
   if (import.meta.server) return;
   const hash = newValue.hash;
   if (hash) onLinkClicked(hash.slice(1));
-});
-
-watch(isScrolling, () => {
-  forceNavigationHidden.value = false;
 });
 
 onMounted(() => {
@@ -70,10 +103,18 @@ onMounted(() => {
 function onLinkClicked(elementId: string) {
   const el = document.getElementById(elementId);
   el?.scrollIntoView({ behavior: "smooth" });
-  forceNavigationHidden.value = true;
+  dialogRef.value?.close();
+}
+
+function onNavigationButtonClicked() {
+  dialogRef.value?.showModal();
+}
+function onDialogCloseButtonClick() {
+  dialogRef.value?.close();
 }
 </script>
 <style scoped>
+@import url("~/assets/theme.css");
 .navbar {
   position: fixed;
   top: 0;
@@ -82,7 +123,7 @@ function onLinkClicked(elementId: string) {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  background-color: black;
+  background-color: var(--accent);
   padding: 0.5rem 0;
   gap: 0.5rem;
   z-index: 100;
@@ -90,12 +131,82 @@ function onLinkClicked(elementId: string) {
   line-break: strict;
 }
 
-.slide-down-enter-active,
-.slide-down-leave-active {
-  transition: all 0.3s ease-in-out;
+.navbutton {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  width: 24px;
+  height: 24px;
+  color: white;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 100%;
 }
-.slide-down-enter-from,
-.slide-down-leave-to {
-  transform: translatey(-100%);
+.sidemenu {
+  background-color: var(--accent);
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50vw;
+  height: 100vh;
+  padding-top: 100px;
+}
+.sidemenu-links {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 50vh;
+}
+.dialog-close-btn {
+  position: fixed;
+  z-index: 100;
+  top: 5%;
+  right: 5%;
+  width: 24px;
+  height: 24px;
+  border: 2px solid black;
+  color: white;
+  background-color: white;
+  color: white;
+  border-radius: 100%;
+}
+
+.test {
+  height: 100vh;
+  width: 100vw;
+  background: transparent;
+  backdrop-filter: blur(1px);
+}
+
+a {
+  color: black;
+}
+
+a:visited {
+  color: black;
+}
+
+a:hover {
+  color: var(--purple);
+}
+
+@media screen and (min-width: 813px) {
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: var(--accent);
+    padding: 0.5rem 0;
+    gap: 0.5rem;
+    z-index: 100;
+    white-space: nowrap;
+    line-break: strict;
+  }
 }
 </style>
