@@ -9,7 +9,7 @@
       />
       <InvitationHeaderSection
         v-if="wedding && rsvpFormReady"
-        id="top"
+        id="el-top"
         :guestType="guest.type"
         :single
         :couple
@@ -36,7 +36,7 @@
       </ClientOnly>
       <RsvpForm
         v-if="rsvpFormReady"
-        id="rsvp"
+        id="el-rsvp"
         :guest
         :wedding
         :accommodation="welcomeData.accommodation"
@@ -52,7 +52,7 @@
       />
       <section
         v-if="guest.is_invited_to_civil_marriage_day"
-        id="civil"
+        id="el-civil"
         class="narrow-section"
       >
         <header>
@@ -104,9 +104,9 @@
           </li>
         </ul>
       </section>
-      <section class="narrow-section">
+      <section id="el-location" class="narrow-section">
         <header>
-          <h2 id="el-location">Unser Schloss Oberndorf</h2>
+          <h2>Unser Schloss Oberndorf</h2>
         </header>
         <p>
           Das Hochzeitsfest wird im bezaubernden Schloss Oberndorf stattfinden.
@@ -127,8 +127,7 @@
           <a href="https://schloss-oberndorf.de/">schloss-oberndorf.de</a>
         </p>
       </section>
-      <section class="narrow-section">
-        <div id="el-theme"><!--Empty div for safari scrolling... fml --></div>
+      <section id="el-theme" class="narrow-section">
         <header>
           <h2>Das Thema - "Dark Fairytale"</h2>
         </header>
@@ -151,7 +150,7 @@
         <!-- TODO: Add section about help for costume like fashion-->
       </section>
       <section
-        id="accommodation"
+        id="el-accommodation"
         v-if="welcomeData.accommodation.is_provided"
         class="narrow-section"
       >
@@ -211,7 +210,7 @@
           </p>
         </template>
       </section>
-      <section v-else id="accommodation" class="narrow-section">
+      <section v-else id="el-accommodation" class="narrow-section">
         <header><h2>Unterkünfte</h2></header>
         <p>
           Da Schloss Oberndorf in einer ländlicheren Gegend liegt, empfehlen wir
@@ -281,7 +280,7 @@
           </p>
         </AccommodationArticle>
       </section>
-      <section id="itinerary" class="narrow-section">
+      <section id="el-itinerary" class="narrow-section">
         <header><h2>Der Ablauf</h2></header>
         <div class="timeline">
           <h3 style="grid-area: t1">14:00 Uhr</h3>
@@ -317,7 +316,7 @@
           <hr class="seperator" />
         </div>
       </section>
-      <section id="gallery">
+      <section id="el-gallery">
         <header><h2>Gallerie</h2></header>
         <Gallery></Gallery>
       </section>
