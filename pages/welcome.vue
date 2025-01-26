@@ -34,29 +34,34 @@
           }"
         ></Countdown>
       </ClientOnly>
-      <RsvpForm
-        v-if="rsvpFormReady"
-        id="el-rsvp"
-        :guest
-        :wedding
-        :accommodation="welcomeData.accommodation"
-        :single
-        :couple
-        :family
-        :family-members
-      />
-      <NoteForm
-        v-if="rsvpFormReady"
-        :note="guest.note"
-        class="narrow-section"
-      />
+      <section id="el-rsvp">
+        <header>
+          <u><h2>RSVP</h2></u>
+        </header>
+        <RsvpForm
+          v-if="rsvpFormReady"
+          :guest
+          :wedding
+          :accommodation="welcomeData.accommodation"
+          :single
+          :couple
+          :family
+          :family-members
+        />
+        <NoteForm
+          v-if="rsvpFormReady"
+          :note="guest.note"
+          class="narrow-section"
+          style="margin-top: 1rem"
+        />
+      </section>
       <section
         v-if="guest.is_invited_to_civil_marriage_day"
         id="el-civil"
         class="narrow-section"
       >
         <header>
-          <h2>Die standesamtliche Trauung</h2>
+          <u><h2>Die standesamtliche Trauung</h2></u>
         </header>
         <p>
           Unsere standesamtliche Trauung im kleinen Kreis findet am
@@ -106,7 +111,7 @@
       </section>
       <section id="el-location" class="narrow-section">
         <header>
-          <h2>Unser Schloss Oberndorf</h2>
+          <u><h2>Unser Schloss Oberndorf</h2></u>
         </header>
         <p>
           Das Hochzeitsfest wird im bezaubernden Schloss Oberndorf stattfinden.
@@ -129,7 +134,7 @@
       </section>
       <section id="el-theme" class="narrow-section">
         <header>
-          <h2>Das Thema - "Dark Fairytale"</h2>
+          <u><h2>Das Thema - "Dark Fairytale"</h2></u>
         </header>
         <p>"Dark Fairytale" heißt übersetzt etwa "Dunkle Märchen".</p>
         <p>
@@ -154,7 +159,9 @@
         v-if="welcomeData.accommodation.is_provided"
         class="narrow-section"
       >
-        <header><h2>Deine Unterkunft</h2></header>
+        <header>
+          <u><h2>Deine Unterkunft</h2></u>
+        </header>
         <template v-if="welcomeData.accommodation.hotel === `PENSION`">
           <p>
             Ihr seid in der Pension am Mühlbach in einem
@@ -211,7 +218,9 @@
         </template>
       </section>
       <section v-else id="el-accommodation" class="narrow-section">
-        <header><h2>Unterkünfte</h2></header>
+        <header>
+          <u><h2>Unterkünfte</h2></u>
+        </header>
         <p>
           Da Schloss Oberndorf in einer ländlicheren Gegend liegt, empfehlen wir
           euch <u><strong>frühzeitig</strong></u> eine Unterkunft für die Nacht
@@ -281,7 +290,9 @@
         </AccommodationArticle>
       </section>
       <section id="el-itinerary" class="narrow-section">
-        <header><h2>Der Ablauf</h2></header>
+        <header>
+          <u><h2>Der Ablauf</h2></u>
+        </header>
         <div class="timeline">
           <h3 style="grid-area: t1">14:00 Uhr</h3>
           <h3 style="grid-area: d1">Get Together</h3>
@@ -317,7 +328,9 @@
         </div>
       </section>
       <section id="el-gallery">
-        <header><h2>Gallerie</h2></header>
+        <header>
+          <u><h2>Gallerie</h2></u>
+        </header>
         <Gallery></Gallery>
       </section>
     </template>

@@ -1,29 +1,26 @@
 <template>
-  <section>
-    <header><h2>RSVP</h2></header>
-    <RsvpFormSingle
-      v-if="guest.type === `SINGLE`"
-      :single="single!"
-      :wedding="wedding"
-      :accommodation="accommodation"
-      :guest
-    />
-    <RsvpFormCouple
-      v-else-if="guest.type === `COUPLE`"
-      :couple="couple!"
-      :wedding="wedding"
-      :accommodation="accommodation"
-      :guest
-    />
-    <RsvpFormFamily
-      v-else
-      :family="family!"
-      :family-members="familyMembers!"
-      :wedding="wedding"
-      :accommodation="accommodation"
-      :guest
-    />
-  </section>
+  <RsvpFormSingle
+    v-if="guest.type === `SINGLE`"
+    :single="single!"
+    :wedding="wedding"
+    :accommodation="accommodation"
+    :guest
+  />
+  <RsvpFormCouple
+    v-else-if="guest.type === `COUPLE`"
+    :couple="couple!"
+    :wedding="wedding"
+    :accommodation="accommodation"
+    :guest
+  />
+  <RsvpFormFamily
+    v-else
+    :family="family!"
+    :family-members="familyMembers!"
+    :wedding="wedding"
+    :accommodation="accommodation"
+    :guest
+  />
 </template>
 <script setup lang="ts">
 import type {
