@@ -10,6 +10,7 @@
       <InvitationHeaderSection
         v-if="wedding && rsvpFormReady"
         id="el-top"
+        class="after-navigation"
         :guestType="guest.type"
         :single
         :couple
@@ -349,12 +350,13 @@ import type {
   Single,
   Wedding,
 } from "@prisma/client";
-import { useElementSize } from "@vueuse/core";
+import { useElementBounding, useElementSize } from "@vueuse/core";
 import dayjs from "dayjs";
 import { Countdown } from "vue3-flip-countdown";
 
 const navbarRef = useTemplateRef("navbar");
 const { height: navbarHeight } = useElementSize(navbarRef);
+const { height: navbarHeight2 } = useElementBounding(navbarRef);
 const { dateOnlyFormat, timeOnlyFormat } = useFormat();
 const { $authenticatedFetch } = useNuxtApp();
 
@@ -472,8 +474,8 @@ h2 {
   margin-top: 0;
 }
 @media screen and (min-width: 813px) {
-  .welcome {
-    padding-top: v-bind(navbarHeight);
+  .after-navigation {
+    margin-top: v-bind(navbarHeight2);
   }
 
   .timeline {

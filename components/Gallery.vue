@@ -9,10 +9,21 @@
 </template>
 <script setup lang="ts">
 const images = [
-  "brautpaar_am_see.jpg",
-  "brautpaar_im_wald_gehend.jpg",
-  "brautpaar_im_wald_kuss.jpg",
-  "brautpaar_im_wald_tanzend.jpg",
+  "dancing_close_spin.jpg",
+  "dancing_close.jpg",
+  "dancing_long_distance.jpg",
+  "dancing_persian.jpg",
+  "flowers.jpg",
+  "giving_flowers.jpg",
+  "kissing_at_lake.jpg",
+  "kissing_in_front_of_sun.jpg",
+  "looking_into_the_distance.jpg",
+  "smiling_with_flowers.jpg",
+  "standing_apart_looking_up.jpg",
+  "standing_with_flowers.jpg",
+  "walking_toward_sun_looking_away.jpg",
+  "walking_toward_sun_looking_over_shoulder.jpg",
+  "walking_toward_sun.jpg",
 ];
 </script>
 <style scoped>

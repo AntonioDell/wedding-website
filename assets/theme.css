@@ -101,3 +101,10 @@ a:visited {
 a:hover {
   color: var(--purple);
 }
+
+textarea,
+input[type="text"] {
+  background-color: black;
+  color: white;
+  font-size: 1rem;
+}

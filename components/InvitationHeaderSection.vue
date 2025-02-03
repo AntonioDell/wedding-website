@@ -47,9 +47,9 @@ const { guestType, single, couple, family } = defineProps<{
 <style scoped>
 section {
   padding-bottom: 6rem;
-  background-image: url("/images/brautpaar_am_see.jpg");
+  background-image: url("/images/walking_toward_sun.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: 0 50%;
   background-repeat: no-repeat;
   margin-bottom: 4rem;
 }

@@ -4,7 +4,8 @@ ARG NODE_VERSION=20.15.0
 FROM node:${NODE_VERSION}-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+RUN npm install --global corepack@latest
+RUN corepack enable && corepack prepare pnpm@9.15.2 --activate
 RUN apt-get update && apt-get install -y openssl libssl3
 COPY . /app
 WORKDIR /app
