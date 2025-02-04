@@ -1,8 +1,10 @@
 <template>
-  <section class="first-section">
+  <section>
     <template v-if="guestType === `SINGLE`">
       <header>
-        <h1>Einladung für {{ single!.name }}</h1>
+        <u
+          ><h1>Einladung für {{ single!.name }}</h1></u
+        >
       </header>
       <p>
         Wir freuen uns sehr, dich zu unserer Hochzeit am
@@ -52,18 +54,24 @@ section {
   background-position: 0 50%;
   background-repeat: no-repeat;
   margin-bottom: 4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 section p,
 section header {
   --text-border-color: black;
-  --text-border-size: 1px;
+  --text-border-size: 2px;
 
   filter: drop-shadow(var(--text-border-size) 0 0 var(--text-border-color))
     drop-shadow(0 var(--text-border-size) 0 var(--text-border-color))
     drop-shadow(calc(-1 * var(--text-border-size)) 0 0 var(--text-border-color))
     drop-shadow(0 calc(-1 * var(--text-border-size)) 0 var(--text-border-color));
   color: white;
+  max-width: 1080px;
+  text-align: center;
 }
 
 p,
