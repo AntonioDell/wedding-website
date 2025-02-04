@@ -56,10 +56,14 @@ section {
 
 section p,
 section header {
-  --text-border-color: var(--accent);
+  --text-border-color: black;
   --text-border-size: 1px;
-  color: black;
-  background-color: var(--accent);
+
+  filter: drop-shadow(var(--text-border-size) 0 0 var(--text-border-color))
+    drop-shadow(0 var(--text-border-size) 0 var(--text-border-color))
+    drop-shadow(calc(-1 * var(--text-border-size)) 0 0 var(--text-border-color))
+    drop-shadow(0 calc(-1 * var(--text-border-size)) 0 var(--text-border-color));
+  color: white;
 }
 
 p,
@@ -69,18 +73,18 @@ h1 {
 
 section p strong {
   color: white;
-  border: 2px solid black;
   color: black;
+  background-color: var(--accent);
   padding: 2px;
   white-space: nowrap;
 }
 @media screen and (min-width: 813px) {
   section p strong {
-    color: white;
-    border: 4px solid black;
-    color: black;
     padding: 4px;
     white-space: nowrap;
+  }
+  section {
+    background-position: 0 40%;
   }
 }
 </style>
