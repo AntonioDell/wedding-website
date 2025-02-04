@@ -103,7 +103,9 @@ a:hover {
 }
 
 textarea,
-input[type="text"] {
+input[type="text"],
+input,
+select {
   background-color: black;
   color: white;
   font-size: 1rem;

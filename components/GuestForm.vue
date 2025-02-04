@@ -10,7 +10,14 @@
         <option :value="`FAMILY`">Family</option>
       </select>
       <label for="invitationCode">Code:</label>
-      <input name="invitationCode" type="text" v-model="invitationCodeInput" />
+      <div style="display: flex">
+        <input
+          name="invitationCode"
+          type="text"
+          v-model="invitationCodeInput"
+        />
+        <button @click="onGenerateCode">Generate</button>
+      </div>
       <label for="isInvitedToCivilMarriageDay"
         >Is invited to civil marriage day?</label
       >
@@ -202,6 +209,10 @@ function onDeleteFamilyMember(index: number) {
 function onUndeleteFamilyMember(index: number) {
   const member = familyMembersInput.value.at(index);
   if (member) member.deleted = false;
+}
+
+function onGenerateCode() {
+  invitationCodeInput.value = crypto.randomUUID();
 }
 
 const isEmptyObject = <T>(v: T) =>
