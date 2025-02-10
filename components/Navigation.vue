@@ -71,7 +71,7 @@ const links = computed(() => {
     { to: "#theme", label: "Thema" },
     { to: "#accommodation", label: "Unterkünfte" },
     { to: "#itinerary", label: "Ablauf" },
-    { to: "#gallery", label: "Gallerie" },
+    { to: "#gallery", label: "Galerie" },
   ];
   if (is_invited_to_civil_marriage_day) {
     list.splice(2, 0, { to: "#civil", label: "Standesamt" });

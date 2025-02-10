@@ -189,7 +189,12 @@
                 ? "Doppelzimmer"
                 : "Einzelzimmer"
             }}
-            für {{ welcomeData.accommodation.nights_included }} Nächte
+            für
+            {{
+              welcomeData.accommodation.nights_included > 1
+                ? `${welcomeData.accommodation.nights_included} Nächte`
+                : `eine Nacht`
+            }}
             untergebracht. Das ist die Unterkunft die im vorhinein für das
             Brautpaar, nahe Familie und Trauzeugen reserviert wurde.
           </p>
@@ -215,7 +220,11 @@
           <p>
             Ihr seid im Aparthotel Donaustern nur wenige Auto-Minuten von
             Schloss Oberndorf entfernt in einem Doppelzimmer für
-            {{ welcomeData.accommodation.nights_included }} Nächte
+            {{
+              welcomeData.accommodation.nights_included > 1
+                ? `${welcomeData.accommodation.nights_included} Nächte`
+                : `eine Nacht`
+            }}
             untergebracht. Am Abend der Hochzeit werden genug Taxis zur
             Verfügung stehen, um binnen kurzer Zeit zum Hotel zu kommen.
           </p>
