@@ -47,7 +47,7 @@ const { guestType, single, couple, family } = defineProps<{
 <style scoped>
 section {
   padding-bottom: 6rem;
-  background-image: url("/images/walking_toward_sun.jpg");
+  background-image: url("/images/header-mobile.jpg");
   background-size: cover;
   background-position: 0 50%;
   background-repeat: no-repeat;
@@ -95,13 +95,19 @@ section p strong {
   padding: 2px;
   white-space: nowrap;
 }
-@media screen and (min-width: 813px) {
+@media (min-width: 481px) and (max-width: 1024px) {
+  section {
+    background-image: url("images/header-tablet.jpg");
+  }
+}
+@media screen and (min-width: 1025px) {
   section p strong {
     padding: 4px;
     white-space: nowrap;
   }
   section {
     background-position: 0 40%;
+    background-image: url("/images/header.jpg");
   }
 }
 </style>
