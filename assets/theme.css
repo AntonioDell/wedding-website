@@ -2,14 +2,14 @@
   --dark-purple: #3c096c;
   --purple: #5a189a;
   --light-purple: #9d4edd;
-  --accent: #c4aead;
+  --accent: #e7d2d2;
   --small-screen: 812px;
 
   font-family: "Mada";
 }
 
 body {
-  color: white;
+  color: #e7d2d2;
 }
 
 h1,
@@ -78,35 +78,40 @@ button {
   width: fit-content;
   padding: 0.5rem;
   background-color: black;
-  color: white;
-  border: 1px solid white;
+  color: var(--accent);
+  border: 1px solid var(--accent);
   cursor: pointer;
 }
 
 button:hover,
 button:active {
-  background-color: white;
+  background-color: var(--accent);
   color: black;
   border-color: black;
 }
 
 a {
-  color: white;
+  color: var(--accent);
+  text-decoration: none;
 }
 
 a:visited {
-  color: white;
+  color: var(--accent);
 }
 
 a:hover {
-  color: var(--purple);
+  color: var(--light-purple);
 }
 
 textarea,
 input[type="text"],
 input,
 select {
-  background-color: black;
-  color: white;
+  background-color: var(--accent);
+  color: black;
   font-size: 1rem;
+}
+
+input[type="radio"] {
+  cursor: pointer;
 }

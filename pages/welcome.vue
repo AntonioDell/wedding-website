@@ -21,11 +21,11 @@
         <Countdown
           v-if="wedding"
           style="text-shadow: none !important"
-          labelColor="white"
+          labelColor="var(--accent)"
           mainColor="black"
           secondFlipColor="black"
-          mainFlipBackgroundColor="white"
-          secondFlipBackgroundColor="white"
+          mainFlipBackgroundColor="var(--accent)"
+          secondFlipBackgroundColor="var(--accent)"
           :deadlineISO="wedding.date"
           :labels="{
             days: `Tage`,
@@ -37,7 +37,19 @@
       </ClientOnly>
       <section id="el-rsvp">
         <header>
-          <u><h2>RSVP</h2></u>
+          <h2>RSVP</h2>
+          <p>
+            Bitte füllt das Formular aus um uns wichtige Informationen
+            mitzuteilen. Ihr könnt eure Antworten bis zum
+            <u
+              ><strong>{{
+                dateOnlyFormat.format(
+                  dayjs(wedding.date).subtract(2, "weeks").toDate()
+                )
+              }}</strong></u
+            >
+            noch anpassen.
+          </p>
         </header>
         <RsvpForm
           v-if="rsvpFormReady"
@@ -62,20 +74,20 @@
         class="narrow-section"
       >
         <header>
-          <u><h2>Die standesamtliche Trauung</h2></u>
+          <h2>Die standesamtliche Trauung</h2>
         </header>
         <p>
-          Unsere standesamtliche Trauung im kleinen Kreis findet am
+          Unsere standesamtliche Trauung findet am
           {{
             dateOnlyFormat.format(dayjs(wedding.civil_marriage_date).toDate())
           }}
-          in Bonn statt.
+          im kleinen Kreis in Bonn statt.
         </p>
         <p>
           Wir würden uns sehr freuen wenn du/ihr dabei wärt, aber da wir unsere
           eigentliche Hochzeit am
           {{ dateOnlyFormat.format(dayjs(wedding.date).toDate()) }} als die
-          wichtigere sehen, ist es nicht schlimm, falls du/ihr bei der
+          Wichtigere sehen, ist es nicht schlimm, falls du/ihr bei der
           Standesamtlichen nicht dabei sein könnt.
         </p>
         <p>
@@ -84,16 +96,17 @@
             timeOnlyFormat.format(dayjs(wedding.civil_marriage_date).toDate())
           }}
           Uhr stattfinden. Danach werden wir in das Lokal Haus Müllestumpe
-          einkehren und zu Mittag essen. Das Lokal ist bis Nachts für uns
-          reserviert.
+          einkehren und zu Mittag essen. Wir haben das Lokal bis Mitternacht für
+          uns reserviert.
         </p>
         <p>
-          Solltet ihr für den Tag eine Unterkunft benötigen, könnt ihr entweder
-          in Haus Müllestumpe selbst ein Zimmer buchen über die
+          Solltet ihr für diesen Tag eine Unterkunft benötigen, habt ihr die
+          Möglichkeit, euch entweder selbst in dem Lokal Haus Müllestumpe über
+          die
           <a href="https://via.eviivo.com/Mullestumpe53117" target="_blank"
             >offizielle Website</a
           >
-          oder eine anderes Hotel/AirBnB in der Nähe suchen.
+          einzubuchen oder euch ein anderes Hotel/AirBnB in der Nähe zu suchen.
         </p>
         <ul>
           <li>
@@ -112,13 +125,13 @@
       </section>
       <section id="el-location" class="narrow-section">
         <header>
-          <u><h2>Unser Schloss Oberndorf</h2></u>
+          <h2>Unser Schloss Oberndorf</h2>
         </header>
         <p>
           Das Hochzeitsfest wird im bezaubernden Schloss Oberndorf stattfinden.
           Das Schloss bietet ein fabelhaftes Ambiente und reichlich Platz mit
-          verschiedenen Orten im Außen- und Innenbereich. Dadurch haben wir auch
-          bei schlechtem Wetter einen perfekten Ort für die Trauung.
+          unterschiedlichen Plätzen im Außen- und Innenbereich. Dadurch haben
+          wir auch bei schlechtem Wetter einen perfekten Ort für die Trauung.
         </p>
         <p>
           Die Adresse lautet:<br />
@@ -128,19 +141,25 @@
           </LocationLink>
         </p>
         <p>
-          Mehr Infos zu Schloss Oberndorf könnt ihr auf der offiziellen Website
+          Mehr Infos zum Schloss Oberndorf könnt ihr auf der offiziellen Website
           finden:<br />
-          <a href="https://schloss-oberndorf.de/">schloss-oberndorf.de</a>
+          <a href="https://schloss-oberndorf.de/" target="_blank"
+            >schloss-oberndorf.de</a
+          >
         </p>
       </section>
       <section id="el-theme" class="narrow-section">
         <header>
-          <u><h2>Das Thema - "Dark Fairytale"</h2></u>
+          <h2>
+            Das Thema - <wbr /><span style="white-space: nowrap"
+              >"Dark Fairytale"</span
+            >
+          </h2>
         </header>
-        <p>"Dark Fairytale" heißt übersetzt etwa "Dunkle Märchen".</p>
+        <p>"Dark Fairytale" bedeutet übersetzt in etwa "Dunkle Märchen".</p>
         <p>
-          Gemeint sind damit sowohl die originalen Märchen von den Gebrüder
-          Grimm, wie auch neuere Fantasy-Literatur, in welcher eine fantastische
+          Gemeint sind damit sowohl die originalen Märchen der Gebrüder Grimm,
+          als auch neuere Fantasy-Literatur, in welcher eine fantastische,
           jedoch auch unterschwellig düstere Atmosphäre herrscht.
         </p>
         <p>
@@ -149,8 +168,8 @@
           fantastischen Stil auszuwählen.
         </p>
         <p>
-          Ballkleider, Fracks und thematisch angehauchte Accessoirs sind gerne
-          gesehen, jedoch kein Muss. Schlichte Abendgarderobe ist vollkommen
+          Ballkleider, Fracks und thematisch angehauchte Accessoires sind gerne
+          gesehen, jedoch kein Muss. Schlichte Abendgaderobe ist vollkommen
           ausreichend.
         </p>
         <!-- TODO: Add section about help for costume like fashion-->
@@ -161,7 +180,7 @@
         class="narrow-section"
       >
         <header>
-          <u><h2>Deine Unterkunft</h2></u>
+          <h2>Deine Unterkunft</h2>
         </header>
         <template v-if="welcomeData.accommodation.hotel === `PENSION`">
           <p>
@@ -177,7 +196,7 @@
           </p>
           <p>
             Solltet ihr euch selbst eine andere Unterkunft besorgen, sagt uns
-            bitte vorher bescheid, damit wir die Reservierung in der Pension
+            bitte vorher Bescheid, damit wir die Reservierung in der Pension
             aufheben können.
           </p>
           <p>
@@ -189,7 +208,8 @@
           </p>
           <p>
             Mehr Infos zur Unterkunft findet ihr
-            <a href="https://www.pension-oberndorf.de/">hier</a>.
+            <a href="https://www.pension-oberndorf.de/" target="_blank">hier</a
+            >.
           </p>
         </template>
         <template v-else>
@@ -214,13 +234,14 @@
           </p>
           <p>
             Mehr Infos zur Unterkunft findet ihr
-            <a href="https://www.pension-oberndorf.de/">hier</a>.
+            <a href="https://www.pension-oberndorf.de/" target="_blank">hier</a
+            >.
           </p>
         </template>
       </section>
       <section v-else id="el-accommodation" class="narrow-section">
         <header>
-          <u><h2>Unterkünfte</h2></u>
+          <h2>Unterkünfte</h2>
         </header>
         <p>
           Da Schloss Oberndorf in einer ländlicheren Gegend liegt, empfehlen wir
@@ -292,8 +313,12 @@
       </section>
       <section id="el-itinerary" class="narrow-section">
         <header>
-          <u><h2>Der Ablauf</h2></u>
+          <h2>Der Ablauf</h2>
         </header>
+        <p>
+          Bis auf den Beginn um 14 Uhr und das Ende um 2 Uhr kann sich hier noch
+          etwas ändern, also schaut gerne später nochmal rein.
+        </p>
         <div class="timeline">
           <h3 style="grid-area: t1">14:00 Uhr</h3>
           <h3 style="grid-area: d1">Get Together</h3>
@@ -314,7 +339,7 @@
             Nach der Trauung stärken wir uns mit Kaffee und Kuchen im
             Wintergarten.
           </p>
-          <h3 style="grid-area: t4">17:00 Uhr</h3>
+          <h3 style="grid-area: t4">18:00 Uhr</h3>
           <h3 style="grid-area: d4">Essen</h3>
           <p style="grid-area: p4">
             Für reichlich Verpflegung ist im Gewölbe des Schlosses gesorgt.
@@ -330,7 +355,7 @@
       </section>
       <section id="el-gallery">
         <header>
-          <u><h2>Gallerie</h2></u>
+          <h2>Galerie</h2>
         </header>
         <Gallery></Gallery>
       </section>

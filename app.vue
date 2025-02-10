@@ -3,7 +3,11 @@
   <NuxtRouteAnnouncer />
   <NuxtPage />
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useHead({
+  title: "Hochzeit Antonio & Anna",
+});
+</script>
 <style>
 @import url("~/assets/theme.css");
 
@@ -45,6 +49,5 @@ body {
   background-position: center;
   margin: 0;
   padding: 0;
-  color: white;
 }
 </style>

@@ -24,7 +24,7 @@
           height="24px"
           width="24px"
           viewBox="0 -960 960 960"
-          fill="undefined"
+          fill="var(--accent)"
         >
           <path
             d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
@@ -35,11 +35,9 @@
         <div class="sidemenu-links">
           <template v-for="link in links" :key="link.to">
             <span style="color: black">
-              &#9001;
               <NuxtLink :to="link.to">
                 {{ link.label }}
               </NuxtLink>
-              &#9002;
             </span>
           </template>
         </div>
@@ -85,7 +83,7 @@ const router = useRouter();
 const { width } = useWindowSize();
 const welcomeRef = ref<HTMLElement | null>(null);
 
-const isSmallScreen = computed(() => width.value <= 812);
+const isSmallScreen = computed(() => width.value <= 1079);
 const dialogRef = useTemplateRef("dialogRef");
 
 watch(router.currentRoute, (newValue) => {
@@ -136,10 +134,11 @@ function onDialogCloseButtonClick() {
   margin: 1rem;
   width: 24px;
   height: 24px;
-  color: white;
-  background-color: white;
+  color: var(--accent);
+  background-color: var(--accent);
   border: 2px solid black;
   border-radius: 100%;
+  z-index: 101;
 }
 .sidemenu {
   background-color: var(--accent);
@@ -151,7 +150,6 @@ function onDialogCloseButtonClick() {
   padding-top: 100px;
 }
 .sidemenu-links {
-  color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -165,10 +163,9 @@ function onDialogCloseButtonClick() {
   margin: 1rem;
   width: 24px;
   height: 24px;
-  border: 2px solid black;
-  color: white;
-  background-color: white;
-  color: white;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  background-color: black;
   border-radius: 100%;
 }
 
@@ -191,7 +188,7 @@ a:hover {
   color: var(--purple);
 }
 
-@media screen and (min-width: 813px) {
+@media screen and (min-width: 1080px) {
   .navbar {
     position: fixed;
     top: 0;
