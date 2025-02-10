@@ -35,7 +35,7 @@
           }"
         ></Countdown>
       </ClientOnly>
-      <section id="el-rsvp">
+      <section id="el-rsvp" class="narrow-section">
         <header>
           <h2>RSVP</h2>
           <p>
@@ -64,7 +64,6 @@
         <NoteForm
           v-if="rsvpFormReady"
           :note="guest.note"
-          class="narrow-section"
           style="margin-top: 1rem"
         />
       </section>

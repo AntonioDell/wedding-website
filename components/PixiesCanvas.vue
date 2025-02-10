@@ -6,19 +6,22 @@
 <script setup lang="ts">
 import { useWindowSize } from "@vueuse/core";
 
-//TODO: Make pixies flee from mouse
 const { height: windowHeight, width: windowWidth } = useWindowSize();
 
 const pixieCanvas = useTemplateRef("pixie");
 const containerDiv = useTemplateRef("container");
 
 watch([windowHeight, windowWidth], () => {
-  if (!pixieCanvas.value || !containerDiv.value) return;
+  setupCanvas();
 });
 
 onMounted(() => {
-  if (!pixieCanvas.value || !containerDiv.value) return;
+  setupCanvas();
+});
 
+let i1: NodeJS.Timeout, i2: NodeJS.Timeout;
+function setupCanvas() {
+  if (!pixieCanvas.value || !containerDiv.value) return;
   pixieCanvas.value.width = windowWidth.value;
   pixieCanvas.value.height = windowHeight.value;
   containerDiv.value.style.width = windowWidth.value + "";
@@ -31,9 +34,13 @@ onMounted(() => {
     pixies[i] = new Circle();
     pixies[i].reset(windowWidth.value, windowHeight.value);
   }
-  setInterval(() => draw(context, pixies), 50);
-  setInterval(() => draw(context, pixies), 70);
-});
+  if (i1 && i2) {
+    clearInterval(i1);
+    clearInterval(i2);
+  }
+  i1 = setInterval(() => draw(context, pixies), 50);
+  i2 = setInterval(() => draw(context, pixies), 70);
+}
 
 function draw(context: CanvasRenderingContext2D, pixies: Circle[]) {
   context.clearRect(0, 0, windowWidth.value, windowHeight.value);

@@ -62,11 +62,22 @@ section p,
 section header {
   --text-border-color: black;
   --text-border-size: 2px;
+  --text-border-blur: 1px;
 
-  filter: drop-shadow(var(--text-border-size) 0 0 var(--text-border-color))
-    drop-shadow(0 var(--text-border-size) 0 var(--text-border-color))
-    drop-shadow(calc(-1 * var(--text-border-size)) 0 0 var(--text-border-color))
-    drop-shadow(0 calc(-1 * var(--text-border-size)) 0 var(--text-border-color));
+  filter: drop-shadow(
+      var(--text-border-color) var(--text-border-size) 0 var(--text-border-blur)
+    )
+    drop-shadow(
+      var(--text-border-color) 0 var(--text-border-size) var(--text-border-blur)
+    )
+    drop-shadow(
+      var(--text-border-color) calc(-1 * var(--text-border-size)) 0
+        var(--text-border-blur)
+    )
+    drop-shadow(
+      var(--text-border-color) 0 calc(-1 * var(--text-border-size))
+        var(--text-border-blur)
+    );
   color: var(--accent);
   max-width: 1080px;
   text-align: center;
