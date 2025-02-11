@@ -186,6 +186,10 @@ const familyMembersInput = ref<FamilyMemberType[]>(props.family_members || []);
 const newMemberName = ref<string>();
 const newMemberIsChildUnder14 = ref<Choice>();
 
+onMounted(() => {
+  onGenerateCode();
+});
+
 function onAddFamilyMember() {
   if (!newMemberName.value) return;
 
