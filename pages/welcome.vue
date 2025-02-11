@@ -90,13 +90,10 @@
           Standesamtlichen nicht dabei sein könnt.
         </p>
         <p>
-          Die standesamtliche Trauung wird im Rathaus Hardtberg um
-          {{
-            timeOnlyFormat.format(dayjs(wedding.civil_marriage_date).toDate())
-          }}
-          Uhr stattfinden. Danach werden wir in das Lokal Haus Müllestumpe
-          einkehren und zu Mittag essen. Wir haben das Lokal bis Mitternacht für
-          uns reserviert.
+          Die standesamtliche Trauung wird im Rathaus Hardtberg um 11:40 Uhr
+          stattfinden. Danach werden wir in das Lokal Haus Müllestumpe einkehren
+          und zu Mittag essen. Wir haben das Lokal bis Mitternacht für uns
+          reserviert.
         </p>
         <p>
           Solltet ihr für diesen Tag eine Unterkunft benötigen, habt ihr die
