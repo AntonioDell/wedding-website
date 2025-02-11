@@ -79,7 +79,7 @@
             v-model="accommodationChoice"
             :value="`YES`"
           />
-          <label for="accommodationYes">warnehmen.</label>
+          <label for="accommodationYes">wahrnehmen.</label>
         </p>
         <p>
           <input

@@ -367,6 +367,11 @@
         </header>
         <Gallery></Gallery>
       </section>
+      <section>
+        <p style="font-size: small">
+          Diese Website wurde mit Liebe von Hand gemacht &#128156;
+        </p>
+      </section>
     </template>
     <div v-else-if="status === `error`">An error occurred: {{ error }}</div>
     <div v-else>Loading wedding infos...</div>
