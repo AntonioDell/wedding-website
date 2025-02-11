@@ -38,12 +38,23 @@ function setupCanvas() {
     clearInterval(i1);
     clearInterval(i2);
   }
-  i1 = setInterval(() => draw(context, pixies), 50);
-  i2 = setInterval(() => draw(context, pixies), 70);
+  i1 = setInterval(
+    () => draw(context, pixies, windowWidth.value, windowHeight.value),
+    50
+  );
+  i2 = setInterval(
+    () => draw(context, pixies, windowWidth.value, windowHeight.value),
+    70
+  );
 }
 
-function draw(context: CanvasRenderingContext2D, pixies: Circle[]) {
-  context.clearRect(0, 0, windowWidth.value, windowHeight.value);
+function draw(
+  context: CanvasRenderingContext2D,
+  pixies: Circle[],
+  width: number,
+  height: number
+) {
+  context.clearRect(0, 0, width, height);
   for (let i = 0; i < pixies.length; i++) {
     pixies[i].fade();
     pixies[i].move();
