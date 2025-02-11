@@ -134,7 +134,6 @@
           for="accommodationNightsIncluded"
           type="number"
           min="0"
-          max="2"
           v-model="accommodationInput.nights_included"
         />
         <label for="accommodationIsAccepted">Is accommodation accepted?</label>
