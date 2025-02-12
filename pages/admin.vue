@@ -146,6 +146,32 @@
           </tr>
         </tbody>
       </table>
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background-color: black;
+        "
+      >
+        <h2>Statistics</h2>
+        <div>
+          Anzahl Einladungslinks: {{ linkCount }}
+          <h3>Hochzeit</h3>
+          <p>Gesamtanzahl Gäste (maximum): {{ maxGuestCountWedding }}</p>
+          <p>Gesamtanzahl Gäste (nur zusagen): {{ guestCountWedding }}</p>
+          <h3>Standesamtliche Trauung</h3>
+          <p>Gesamtanzahl Gäste (maximum): {{ maxGuestCountCivil }}</p>
+          <p>Gesamtanzahl Gäste (nur zusagen): {{ guestCountCivil }}</p>
+          <h3>Unterkünfte</h3>
+          <p>Anzahl angebotener Zimmer: {{ totalAccommodationsProvided }}</p>
+          <p>Davon angenommen: {{ acceptedAccommodations }}</p>
+          <p>
+            Anegenommen in Aparthotel: {{ acceptedAccommodationsAparthotel }}
+          </p>
+          <p>Anegenommen in Pension: {{ acceptedAccommodationsPension }}</p>
+        </div>
+      </div>
     </div>
     <div v-else>You are not admin.</div>
   </div>
@@ -154,6 +180,7 @@
 import type { GuestFormType } from "~/components/types";
 import { FetchError } from "ofetch";
 import { clean } from "deep-cleaner";
+import { Choice, GuestType, Hotel } from "@prisma/client";
 
 const showAddGuestForm = ref<boolean>(false);
 
@@ -173,6 +200,93 @@ const guestToEditFamilyMMembers = computed(() => {
   const { family_members, ...family } = guestToEdit.value.family;
   return family_members;
 });
+
+const sumFunc = (sum: number, x: number) => sum + x;
+
+const linkCount = computed(() => allGuests.value?.length || 0);
+const maxGuestCountWedding = computed(
+  () =>
+    allGuests.value
+      ?.map((g) => {
+        if (g.type === GuestType.SINGLE || g.type === GuestType.COUPLE)
+          return 2;
+        else return g.family.family_members.length as number;
+      })
+      .reduce(sumFunc, 0) || 0
+);
+
+const guestCountWedding = computed(
+  () =>
+    allGuests.value
+      ?.filter((g) => g.is_coming === Choice.YES)
+      .map((g) => {
+        if (g.type === GuestType.SINGLE)
+          return 1 + (g.single.plus_one === Choice.YES ? 1 : 0);
+        else if (g.type === GuestType.FAMILY)
+          return g.family.family_members.length as number;
+        else return 2;
+      })
+      .reduce(sumFunc, 0) || 0
+);
+
+const maxGuestCountCivil = computed(
+  () =>
+    allGuests.value
+      ?.filter((g) => g.is_invited_to_civil_marriage_day)
+      .map((g) => {
+        if (g.type === GuestType.SINGLE || g.type === GuestType.COUPLE)
+          return 2;
+        else return g.family.family_members.length as number;
+      })
+      .reduce(sumFunc, 0) || 0
+);
+const guestCountCivil = computed(
+  () =>
+    allGuests.value
+      ?.filter(
+        (g) =>
+          g.is_invited_to_civil_marriage_day &&
+          g.is_coming_to_civil_marriage_day === Choice.YES
+      )
+      .map((g) => {
+        if (g.type === GuestType.SINGLE || g.type === GuestType.COUPLE)
+          return 2;
+        else return g.family.family_members.length as number;
+      })
+      .reduce(sumFunc, 0) || 0
+);
+const guestsWithAccommodations = computed(
+  () =>
+    allGuests.value?.filter(
+      (g) => g.accommodation && g.accommodation.is_provided
+    ) || []
+);
+const totalAccommodationsProvided = computed(
+  () => guestsWithAccommodations.value.length
+);
+const acceptedAccommodations = computed(
+  () =>
+    guestsWithAccommodations.value.filter(
+      (g) => g.accommodation.is_accepted === Choice.YES
+    ).length
+);
+const acceptedAccommodationsAparthotel = computed(
+  () =>
+    guestsWithAccommodations.value.filter(
+      (g) =>
+        g.accommodation.hotel === Hotel.APARTHOTEL &&
+        g.accommodation.is_accepted === Choice.YES
+    ).length
+);
+const acceptedAccommodationsPension = computed(
+  () =>
+    guestsWithAccommodations.value.filter(
+      (g) =>
+        g.accommodation.hotel === Hotel.PENSION &&
+        g.accommodation.is_accepted === Choice.YES
+    ).length
+);
+
 const { invitationCode } = useAuth();
 
 const route = useRoute();
@@ -226,6 +340,9 @@ async function onDeleteGuest(guestId: number) {
 }
 </script>
 <style scoped>
+* {
+  color: var(--accent);
+}
 h1,
 h2 {
   text-align: center;
