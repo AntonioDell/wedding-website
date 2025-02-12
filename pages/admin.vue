@@ -177,10 +177,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { GuestFormType } from "~/components/types";
-import { FetchError } from "ofetch";
 import { clean } from "deep-cleaner";
-import { Choice, GuestType, Hotel } from "@prisma/client";
+import { FetchError } from "ofetch";
+import type { GuestFormType } from "~/components/types";
 
 const showAddGuestForm = ref<boolean>(false);
 
@@ -208,8 +207,7 @@ const maxGuestCountWedding = computed(
   () =>
     allGuests.value
       ?.map((g) => {
-        if (g.type === GuestType.SINGLE || g.type === GuestType.COUPLE)
-          return 2;
+        if (g.type === "SINGLE" || g.type === "COUPLE") return 2;
         else return g.family.family_members.length as number;
       })
       .reduce(sumFunc, 0) || 0
@@ -218,11 +216,11 @@ const maxGuestCountWedding = computed(
 const guestCountWedding = computed(
   () =>
     allGuests.value
-      ?.filter((g) => g.is_coming === Choice.YES)
+      ?.filter((g) => g.is_coming === "YES")
       .map((g) => {
-        if (g.type === GuestType.SINGLE)
-          return 1 + (g.single.plus_one === Choice.YES ? 1 : 0);
-        else if (g.type === GuestType.FAMILY)
+        if (g.type === "SINGLE")
+          return 1 + (g.single.plus_one === "YES" ? 1 : 0);
+        else if (g.type === "FAMILY")
           return g.family.family_members.length as number;
         else return 2;
       })
@@ -234,8 +232,7 @@ const maxGuestCountCivil = computed(
     allGuests.value
       ?.filter((g) => g.is_invited_to_civil_marriage_day)
       .map((g) => {
-        if (g.type === GuestType.SINGLE || g.type === GuestType.COUPLE)
-          return 2;
+        if (g.type === "SINGLE" || g.type === "COUPLE") return 2;
         else return g.family.family_members.length as number;
       })
       .reduce(sumFunc, 0) || 0
@@ -246,11 +243,10 @@ const guestCountCivil = computed(
       ?.filter(
         (g) =>
           g.is_invited_to_civil_marriage_day &&
-          g.is_coming_to_civil_marriage_day === Choice.YES
+          g.is_coming_to_civil_marriage_day === "YES"
       )
       .map((g) => {
-        if (g.type === GuestType.SINGLE || g.type === GuestType.COUPLE)
-          return 2;
+        if (g.type === "SINGLE" || g.type === "COUPLE") return 2;
         else return g.family.family_members.length as number;
       })
       .reduce(sumFunc, 0) || 0
@@ -267,23 +263,23 @@ const totalAccommodationsProvided = computed(
 const acceptedAccommodations = computed(
   () =>
     guestsWithAccommodations.value.filter(
-      (g) => g.accommodation.is_accepted === Choice.YES
+      (g) => g.accommodation.is_accepted === "YES"
     ).length
 );
 const acceptedAccommodationsAparthotel = computed(
   () =>
     guestsWithAccommodations.value.filter(
       (g) =>
-        g.accommodation.hotel === Hotel.APARTHOTEL &&
-        g.accommodation.is_accepted === Choice.YES
+        g.accommodation.hotel === "APARTHOTEL" &&
+        g.accommodation.is_accepted === "YES"
     ).length
 );
 const acceptedAccommodationsPension = computed(
   () =>
     guestsWithAccommodations.value.filter(
       (g) =>
-        g.accommodation.hotel === Hotel.PENSION &&
-        g.accommodation.is_accepted === Choice.YES
+        g.accommodation.hotel === "PENSION" &&
+        g.accommodation.is_accepted === "YES"
     ).length
 );
 

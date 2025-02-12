@@ -186,7 +186,7 @@ const newMemberName = ref<string>();
 const newMemberIsChildUnder14 = ref<Choice>();
 
 onMounted(() => {
-  onGenerateCode();
+  if (!props.invitationCode) onGenerateCode();
 });
 
 function onAddFamilyMember() {
