@@ -98,7 +98,7 @@
             <td>
               {{
                 guest.accommodation.is_provided
-                  ? `Accepted (${guest.accommodation.hotel}, ${guest.accommodation.type}, ${guest.accommodation.nights_included} nights): ${guest.accommodation.is_accepted}`
+                  ? `${guest.accommodation.hotel}, ${guest.accommodation.type}, ${guest.accommodation.nights_included} nights: ${guest.accommodation.is_accepted}`
                   : "-"
               }}
             </td>
