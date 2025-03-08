@@ -144,6 +144,7 @@ export const useGuestSchema = () => {
       }),
     guestType: guestTypeEnum.optional(),
     is_coming: optionalChoice,
+    is_coming_to_civil_marriage_day: optionalChoice,
     invitationCode: z.string().min(1).optional(),
     accommodation: accommodationBaseField
       .extend({

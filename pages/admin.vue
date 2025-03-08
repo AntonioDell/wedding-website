@@ -19,7 +19,13 @@
             @save="onEditGuestSave"
             :guest-type="guestToEdit.type"
             :guest-id="guestToEdit.guest_id"
-            :is-coming="guestToEdit.is_coming"
+            :is_coming="guestToEdit.is_coming"
+            :is_invited_to_civil_marriage_day="
+              guestToEdit.is_invited_to_civil_marriage_day
+            "
+            :is_coming_to_civil_marriage_day="
+              guestToEdit.is_coming_to_civil_marriage_day
+            "
             :single="guestToEdit.single"
             :couple="guestToEdit.couple"
             :family="guestToEditFamily"

@@ -18,6 +18,7 @@ type GuestFormType = {
   invitationCode?: string;
   is_coming?: Choice;
   is_invited_to_civil_marriage_day?: boolean;
+  is_coming_to_civil_marriage_day?: Choice;
   accommodation?: {
     is_provided?: boolean;
     type?: AccommodationType;

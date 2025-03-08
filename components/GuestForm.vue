@@ -18,6 +18,8 @@
         />
         <button @click="onGenerateCode">Generate</button>
       </div>
+      <label for="isComing">Is coming?</label>
+      <FormChoiceField id="isComing" v-model="isComing" />
       <label for="isInvitedToCivilMarriageDay"
         >Is invited to civil marriage day?</label
       >
@@ -26,8 +28,15 @@
         id="isInvitedToCivilMarriageDay"
         v-model="isInvitedToCivilMarriageDay"
       />
-      <label for="isComing">Is coming?</label>
-      <FormChoiceField id="isComing" v-model="isComing" />
+      <template v-if="isInvitedToCivilMarriageDay">
+        <label for="isComingToCivilMarriageDay"
+          >Is coming to civil marriage day?</label
+        >
+        <FormChoiceField
+          id="isComingToCivilMarriageDay"
+          v-model="isComingToCivilMarriageDay"
+        />
+      </template>
       <template v-if="guestTypeInput === `SINGLE`">
         <label for="singleName">Name:</label>
         <input id="singleName" type="text" v-model="singleInput.name" />
@@ -153,6 +162,7 @@ import type { FamilyMemberType, GuestFormType } from "~/components/types";
 const props = withDefaults(defineProps<GuestFormType>(), {
   is_coming: `UNDETERMINED`,
   is_invited_to_civil_marriage_day: false,
+  is_coming_to_civil_marriage_day: `UNDETERMINED`,
   accommodation: () => ({}),
   single: () => ({}),
   couple: () => ({}),
@@ -166,6 +176,9 @@ const isComing = ref<Choice>(props.is_coming);
 const invitationCodeInput = ref<string | undefined>(props.invitationCode);
 const isInvitedToCivilMarriageDay = ref<boolean>(
   props.is_invited_to_civil_marriage_day
+);
+const isComingToCivilMarriageDay = ref<Choice>(
+  props.is_coming_to_civil_marriage_day
 );
 
 const accommodationInput = ref<
@@ -227,6 +240,7 @@ function onSaveChanges() {
     invitationCode: invitationCodeInput.value,
     is_coming: isComing.value,
     is_invited_to_civil_marriage_day: isInvitedToCivilMarriageDay.value,
+    is_coming_to_civil_marriage_day: isComingToCivilMarriageDay.value,
     accommodation: isEmptyObject(accommodationInput.value),
     single: guestTypeInput.value === "SINGLE" ? singleInput.value : undefined,
     couple: guestTypeInput.value === "COUPLE" ? coupleInput.value : undefined,

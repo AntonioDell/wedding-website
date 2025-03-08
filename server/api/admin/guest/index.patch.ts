@@ -10,6 +10,7 @@ export default defineEventHandler(async (event) => {
     guestId,
     is_coming,
     is_invited_to_civil_marriage_day,
+    is_coming_to_civil_marriage_day,
     guestType,
     invitationCode,
     accommodation,
@@ -27,6 +28,7 @@ export default defineEventHandler(async (event) => {
         type: guestType,
         is_coming,
         is_invited_to_civil_marriage_day,
+        is_coming_to_civil_marriage_day,
         invitation: invitationCode
           ? { update: { code: invitationCode } }
           : undefined,
