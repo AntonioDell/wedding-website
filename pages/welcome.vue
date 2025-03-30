@@ -67,6 +67,23 @@
           style="margin-top: 1rem"
         />
       </section>
+      <section id="el-gifts" class="narrow-section">
+        <header><h2>Geschenke</h2></header>
+        <p>
+          In unseren Kulturkreisen ist es bei Hochzeiten üblich, hauptsächlich
+          Geldgeschenke zu schenken, also braucht ihr euch nicht zu viele
+          Gedanken über das Geschenk zu machen.
+        </p>
+        <p>
+          Natürlich freuen wir uns auch über Sachgeschenke mit einem
+          persönlichen Touch, würden euch aber bitten nicht allzu viel Geld in
+          diese zu stecken.
+        </p>
+        <p v-if="guest.is_invited_to_civil_marriage_day">
+          Zur standesamtlichen Trauung wünschen wir uns ausschließlich eure
+          Anwesenheit 💖
+        </p>
+      </section>
       <section
         v-if="guest.is_invited_to_civil_marriage_day"
         id="el-civil"

@@ -67,6 +67,7 @@ const links = computed(() => {
   const list = [
     { to: "#top", label: "Zum Anfang" },
     { to: "#rsvp", label: "RSVP" },
+    { to: "#gifts", label: "Geschenke" },
     { to: "#location", label: "Schloss Oberndorf" },
     { to: "#theme", label: "Thema" },
     { to: "#accommodation", label: "Unterkünfte" },
