@@ -370,10 +370,11 @@
             Nach der Trauung stärken wir uns mit Kaffee und Kuchen im
             Wintergarten.
           </p>
-          <h3 style="grid-area: t4">18:00 Uhr</h3>
-          <h3 style="grid-area: d4">Essen</h3>
+          <h3 style="grid-area: t4">18:30 Uhr</h3>
+          <h3 style="grid-area: d4">Essen und Party</h3>
           <p style="grid-area: p4">
-            Für reichlich Verpflegung ist im Gewölbe des Schlosses gesorgt.
+            Für reichlich Verpflegung ist im Gewölbe des Schlosses gesorgt. Im
+            Anschluss wird die Tanzfläche mit dem Hochzeitstanz eröffnet.
           </p>
           <h3 style="grid-area: t5">2:00 Uhr</h3>
           <h3 style="grid-area: d5">Ende</h3>
