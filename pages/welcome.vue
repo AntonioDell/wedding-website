@@ -99,42 +99,51 @@
           }}
           im kleinen Kreis in Bonn statt.
         </p>
+        <div class="timeline reduced">
+          <h3 style="grid-area: t1">11:00 Uhr</h3>
+          <h3 style="grid-area: d1">Treffen am Standesamt</h3>
+          <p style="grid-area: p1">
+            In Vorbereitung auf die Standesamtliche Trauung treffen wir uns alle
+            vor dem Rathaus Hardtberg.
+          </p>
+          <h3 style="grid-area: t2">11:40 Uhr</h3>
+          <h3 style="grid-area: d2">Trauung und Anstoßen</h3>
+          <p style="grid-area: p2">
+            Im Rathaus wird die Trauung von einer Standesbeamtin durchgeführt.
+            Danach stoßen wir mit Sekt und alkoholfreien Alternativen vor dem
+            Ratuhaus an.
+          </p>
+          <h3 style="grid-area: t3">13:30 Uhr</h3>
+          <h3 style="grid-area: d3">Drinks und Essen im Haus Müllestumpe</h3>
+          <p style="grid-area: p3">
+            Danach geht es in unser Lokal, dem
+            <a href="https://muellestumpe.de">Haus Müllestumpe</a>. Der Garten
+            des Lokals bietet wunderbare Kulissen um mit unserer Fotografin
+            einen Foto-Shoot zu veranstalten. Im Anschluss wird ein üppiges
+            Buffet inklusive Dessert aufgetischt.
+          </p>
+          <h3 style="grid-area: t4">ab 20:30</h3>
+          <h3 style="grid-area: d4">Karaoke im Dubliners</h3>
+          <p style="grid-area: p4">
+            Für die Abendunterhaltung ist ein Tisch im
+            <a href="https://dubliner-bonn.de/">Dubliner Irish Pub</a>
+            reserviert. Hier können alle feierwütigen den Tag mit einer guten
+            Portion Karaoke abschließen.
+          </p>
+          <hr class="seperator" />
+        </div>
         <p>
-          Wir würden uns sehr freuen wenn du/ihr dabei wärt, aber da wir unsere
-          eigentliche Hochzeit am
-          {{ dateOnlyFormat.format(dayjs(wedding.date).toDate()) }} als die
-          Wichtigere sehen, ist es nicht schlimm, falls du/ihr bei der
-          Standesamtlichen nicht dabei sein könnt.
+          Rathaus Hardtberg:
+          <LocationLink lat="50.716278" long="7.051489">
+            Villemombler Str. 1, 53123 Bonn
+          </LocationLink>
         </p>
         <p>
-          Die standesamtliche Trauung wird im Rathaus Hardtberg um 11:40 Uhr
-          stattfinden. Danach werden wir in das Lokal Haus Müllestumpe einkehren
-          und zu Mittag essen. Wir haben das Lokal bis Mitternacht für uns
-          reserviert.
+          Haus Müllestumpe:
+          <LocationLink lat="50.757106" long="7.080883">
+            An d. Rheindorfer Burg 22, 53117 Bonn
+          </LocationLink>
         </p>
-        <p>
-          Solltet ihr für diesen Tag eine Unterkunft benötigen, habt ihr die
-          Möglichkeit, euch entweder selbst in dem Lokal Haus Müllestumpe über
-          die
-          <a href="https://via.eviivo.com/Mullestumpe53117" target="_blank"
-            >offizielle Website</a
-          >
-          einzubuchen oder euch ein anderes Hotel/AirBnB in der Nähe zu suchen.
-        </p>
-        <ul>
-          <li>
-            Rathaus Hardtberg:
-            <LocationLink lat="50.716278" long="7.051489">
-              Villemombler Str. 1, 53123 Bonn
-            </LocationLink>
-          </li>
-          <li>
-            Haus Müllestumpe:
-            <LocationLink lat="50.757106" long="7.080883">
-              An d. Rheindorfer Burg 22, 53117 Bonn
-            </LocationLink>
-          </li>
-        </ul>
       </section>
       <section id="el-location" class="narrow-section">
         <header>
@@ -501,6 +510,22 @@ h2 {
     "t5 d5"
     "p5 p5";
 }
+
+.timeline.reduced {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(100px, auto);
+  grid-template-areas:
+    "t1 d1"
+    "p1 p1"
+    "t2 d2"
+    "p2 p2"
+    "t3 d3"
+    "p3 p3"
+    "t4 d4"
+    "p4 p4";
+}
+
 .seperator {
   grid-area: seperator;
   transform: rotate(90);
@@ -546,6 +571,21 @@ h2 {
       "t5 seperator d5"
       ". seperator p5";
   }
+  .timeline.reduced {
+    grid-row-gap: 0px;
+    grid-column-gap: 0px;
+    grid-template-columns: 1fr 100px 2fr;
+    grid-template-areas:
+      "t1 seperator d1"
+      ". seperator p1"
+      "t2 seperator d2"
+      ". seperator p2"
+      "t3 seperator d3"
+      ". seperator p3"
+      "t4 seperator d4"
+      ". seperator p4";
+  }
+
   .seperator {
     display: block;
     transform: none;
