@@ -265,7 +265,7 @@
           </p>
           <p>
             Mehr Infos zur Unterkunft findet ihr
-            <a href="https://www.pension-oberndorf.de/" target="_blank">hier</a
+            <a href="https://aparthotel-donaustern.de/" target="_blank">hier</a
             >.
           </p>
         </template>
